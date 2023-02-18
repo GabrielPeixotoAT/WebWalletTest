@@ -18,7 +18,7 @@ namespace WebWallet.Services.Accounts
             this.accountTypeService = accountTypeService;
         }
 
-        public ActionResult<CreateAccoutDTO> Create (CreateAccoutDTO createAccoutDTO)
+        public ActionResult<CreateAccountDTO> Create (CreateAccountDTO createAccoutDTO)
         {
             AccountType? accountType = accountTypeService.ReadById(createAccoutDTO.AccoutTypeId);
             if (accountType == null)

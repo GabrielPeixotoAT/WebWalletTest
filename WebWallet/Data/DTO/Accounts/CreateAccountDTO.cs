@@ -2,7 +2,7 @@
 
 namespace WebWallet.Data.DTO.Accounts
 { 
-    public class CreateAccoutDTO
+    public class CreateAccountDTO
     {
         [Required]
         public string Name { get; set; }

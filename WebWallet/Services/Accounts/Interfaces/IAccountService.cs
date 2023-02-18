@@ -5,6 +5,6 @@ namespace WebWallet.Services.Accounts.Interfaces
 {
     public interface IAccountService
     {
-        ActionResult<CreateAccoutDTO> Create(CreateAccoutDTO createAccoutDTO);
+        ActionResult<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO);
     }
 }

@@ -6,12 +6,12 @@ using WebWallet.Services.Accounts.Interfaces;
 
 namespace WebWallet.Controllers
 {
-    public class AccoutController : Controller
+    public class AccountController : Controller
     {
         ApplicationDbContext dbContext;
         IAccountService accountService;
         
-        public AccoutController(ApplicationDbContext dbContext, IAccountService accountService)
+        public AccountController(ApplicationDbContext dbContext, IAccountService accountService)
         {
             this.dbContext = dbContext;
             this.accountService = accountService;
@@ -22,9 +22,9 @@ namespace WebWallet.Controllers
             return View();
         }
 
-        public IActionResult Create(CreateAccoutDTO request)
+        public IActionResult Create(CreateAccountDTO request)
         {
-            ActionResult<CreateAccoutDTO> result = accountService.Create(request);
+            ActionResult<CreateAccountDTO> result = accountService.Create(request);
 
             return new ViewResult();
         }
