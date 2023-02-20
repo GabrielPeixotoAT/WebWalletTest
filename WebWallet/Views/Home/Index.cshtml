@@ -13,9 +13,9 @@
                 Contas
             </div>
             <div class="">
-                <a class="btn btn-outline-info">
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#myModal">
                     Add
-                </a>
+                </button>
             </div>
         </div>
         <div class="card-body">
@@ -38,6 +38,60 @@
                 }
             </div>
         </div>
+    </div>
+</div>
 
+<!-- CADASTRAR CONTA -->
+<div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nova Conta</h4>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="#">
+                    <p>Informe os dados da nova conta</p>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Nome</span>
+                        </div>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">R$</span>
+                        </div>
+                        <input type="number" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Nº</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Tipo de Conta</span>
+                        </div>
+                        <select class="form-control" name="accountType">
+                            <option selected disabled>Escolha...</option>
+                            <option value="1">Dinheiro</option>
+                            <option value="2">Conta Corrente</option>
+                            <option value="3">Conta Poupança</option>
+                            <option value="4">Conta em Corretora</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
     </div>
 </div>
