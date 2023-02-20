@@ -49,8 +49,8 @@
                 <h4 class="modal-title">Nova Conta</h4>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-                <form method="post" action="#">
+            <form method="post" action="@Url.Action("Create","Account")">
+                <div class="modal-body">              
                     <p>Informe os dados da nova conta</p>
 
                     <div class="input-group mb-3">
@@ -78,7 +78,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de Conta</span>
                         </div>
-                        <select class="form-control" name="accountType">
+                        <select class="form-control" name="accountTypeId">
                             <option selected disabled>Escolha...</option>
                             <option value="1">Dinheiro</option>
                             <option value="2">Conta Corrente</option>
@@ -86,12 +86,12 @@
                             <option value="4">Conta em Corretora</option>
                         </select>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Salvar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
