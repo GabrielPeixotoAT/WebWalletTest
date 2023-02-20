@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using WebWallet.Data.DTO.Accounts;
 using WebWallet.Models;
+using WebWallet.Models.ViewModels;
+using WebWallet.Services.Accounts.Interfaces;
 
 namespace WebWallet.Controllers
 {
@@ -8,14 +11,21 @@ namespace WebWallet.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        IAccountService accountService;
+
+        public HomeController(ILogger<HomeController> logger, IAccountService accountService)
         {
             _logger = logger;
+            this.accountService = accountService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+
+            model.Accounts = accountService.GetAll();
+
+            return View(model);
         }
 
         public IActionResult Privacy()

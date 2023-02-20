@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebWallet.Data;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.AccountType;
@@ -10,11 +11,14 @@ namespace WebWallet.Services.Accounts
     public class AccountService : IAccountService
     {
         ApplicationDbContext context;
+        IMapper mapper;
+
         IAccountTypeService accountTypeService;
 
-        public AccountService(ApplicationDbContext context, IAccountTypeService accountTypeService)
+        public AccountService(ApplicationDbContext context, IAccountTypeService accountTypeService, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
             this.accountTypeService = accountTypeService;
         }
 
@@ -36,6 +40,11 @@ namespace WebWallet.Services.Accounts
             context.SaveChanges();
 
             return new CreatedResult("", createAccoutDTO);
+        }
+
+        public List<ReadAccountDTO> GetAll()
+        {
+            return mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
         }
     }
 }
