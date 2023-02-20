@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Services.Accounts.Interfaces;
 
@@ -16,13 +17,6 @@ namespace WebWallet.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult Create(CreateAccountDTO request)
-        {
-            ActionResult<CreateAccountDTO> result = accountService.Create(request);
-
-            return new ViewResult();
         }
     }
 }
