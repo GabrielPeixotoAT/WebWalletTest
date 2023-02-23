@@ -45,5 +45,10 @@ namespace WebWallet.Controllers
 
             return Redirect("/");
         }
+
+        public IActionResult AccountDetail(int id)
+        {
+            return View();
+        }
     }
 }

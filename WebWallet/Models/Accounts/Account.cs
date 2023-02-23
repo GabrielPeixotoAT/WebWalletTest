@@ -13,7 +13,8 @@ namespace WebWallet.Models.Accounts
         public Decimal Amount { get; set; }
         [Required]
         public string AccountNumber { get; set; }
-
-        public AccountType AccountType { get; set; }
+        [Required]
+        public int AccountTypeID { get; set; }
+        public virtual AccountType AccountType { get; set; }
     }
 }

@@ -13,6 +13,6 @@ namespace WebWallet.Data.DTO.Accounts
         [Required]
         public string AccountNumber { get; set; }
         [Required]
-        public int AccoutTypeId { get; set; }
+        public int AccountTypeID { get; set; }
     }
 }

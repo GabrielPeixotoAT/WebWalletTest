@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebWallet.Data;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.AccountType;
@@ -44,6 +45,7 @@ namespace WebWallet.Services.Accounts
 
         public List<ReadAccountDTO> GetAll()
         {
+            List < ReadAccountDTO > list = mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
             return mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
         }
     }
