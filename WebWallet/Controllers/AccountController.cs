@@ -18,5 +18,12 @@ namespace WebWallet.Controllers
         {
             return View();
         }
+
+        public IActionResult Create(CreateAccountDTO request)
+        {
+            ActionResult<CreateAccountDTO> result = accountService.Create(request);
+
+            return Redirect("/");
+        }
     }
 }

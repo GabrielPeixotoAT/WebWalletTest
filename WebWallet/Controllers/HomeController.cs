@@ -38,17 +38,5 @@ namespace WebWallet.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public IActionResult CreateAccount(CreateAccountDTO request)
-        {
-            ActionResult<CreateAccountDTO> result = accountService.Create(request);
-
-            return Redirect("/");
-        }
-
-        public IActionResult AccountDetail(int id)
-        {
-            return View();
-        }
     }
 }
