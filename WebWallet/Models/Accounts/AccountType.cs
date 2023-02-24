@@ -10,6 +10,6 @@ namespace WebWallet.Models.Accounts
         [Required]
         public string Description { get; set; }
 
-        public List<Account> Accounts { get; set; }
+        public virtual List<Account> Accounts { get; set; }
     }
 }

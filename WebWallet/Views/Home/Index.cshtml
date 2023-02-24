@@ -49,7 +49,7 @@
                 <h4 class="modal-title">Nova Conta</h4>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-controller="home" asp-action="CreateAccount">
+            <form method="post" asp-controller="Account" asp-action="Create">
                 <div class="modal-body">              
                     <p>Informe os dados da nova conta</p>
 
@@ -107,7 +107,7 @@
                 <h4 class="modal-title">Detalhes da Conta</h4>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-controller="home" asp-action="">
+            <form method="post" asp-controller="Account" asp-action="">
                 <div class="modal-body">              
                     <p>Informe os dados da nova conta</p>
 
@@ -176,7 +176,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" hidden>Salvar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" hidden>Excluir</button>
+                    <a type="button" class="btn btn-danger" asp-controller="Account" asp-action="Delete" asp-route-accountid="@account.AccountID">Excluir</a>
                 </div>
             </form>
         </div>

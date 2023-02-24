@@ -43,6 +43,19 @@ namespace WebWallet.Services.Accounts
             return new CreatedResult("", createAccoutDTO);
         }
 
+        public bool Delete(int id)
+        {
+            Account? account = context.Accounts.FirstOrDefault(account => account.AccountID == id);
+            
+            if(account == null)
+                return false;
+
+            context.Accounts.Remove(account);
+            context.SaveChanges();
+
+            return true;
+        }
+
         public List<ReadAccountDTO> GetAll()
         {
             List < ReadAccountDTO > list = mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
