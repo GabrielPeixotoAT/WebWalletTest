@@ -7,7 +7,7 @@ namespace WebWallet.Controllers
 {
     public class AccountController : Controller
     {
-        IAccountService accountService;
+        private IAccountService accountService;
         
         public AccountController(IAccountService accountService)
         {
@@ -22,6 +22,13 @@ namespace WebWallet.Controllers
         public IActionResult Create(CreateAccountDTO request)
         {
             ActionResult<CreateAccountDTO> result = accountService.Create(request);
+
+            return Redirect("/");
+        }
+
+        public IActionResult Delete(int accountid)
+        {
+            bool result = accountService.Delete(accountid);
 
             return Redirect("/");
         }
