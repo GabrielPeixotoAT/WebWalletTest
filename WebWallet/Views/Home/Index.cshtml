@@ -110,7 +110,7 @@
             <form method="post" asp-controller="Account" asp-action="Update">
                 <div class="modal-body">              
                     <p>Selecione o campo que deseja editar.</p>
-
+                    <input type="text" name="AccountId" value="@account.AccountID" hidden>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Nome</span>
