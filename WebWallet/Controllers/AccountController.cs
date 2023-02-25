@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebWallet.Data.DTO.Accounts;
+using WebWallet.Data.Result;
 using WebWallet.Services.Accounts.Interfaces;
 
 namespace WebWallet.Controllers
@@ -22,6 +23,16 @@ namespace WebWallet.Controllers
         public IActionResult Create(CreateAccountDTO request)
         {
             ActionResult<CreateAccountDTO> result = accountService.Create(request);
+
+            return Redirect("/");
+        }
+
+        public IActionResult Update(UpdateAccountDTO request)
+        {
+            Result<UpdateAccountDTO> result = accountService.Update(request);
+
+            if(result.HasError)
+                return NotFound();
 
             return Redirect("/");
         }

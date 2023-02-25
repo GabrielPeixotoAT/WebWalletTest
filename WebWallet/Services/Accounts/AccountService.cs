@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using WebWallet.Data;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.AccountType;
+using WebWallet.Data.Result;
 using WebWallet.Models.Accounts;
 using WebWallet.Services.Accounts.Interfaces;
 
@@ -43,6 +44,19 @@ namespace WebWallet.Services.Accounts
             return new CreatedResult("", createAccoutDTO);
         }
 
+        public Result<UpdateAccountDTO> Update(UpdateAccountDTO request)
+        {
+            Account? accountUpdate = GetByID(request.AccountID);
+
+            if(accountUpdate == null)
+                return new ErrorResult<UpdateAccountDTO>(request, "Account not found");
+
+            accountUpdate = mapper.Map<Account>(request);
+            context.SaveChanges();
+
+            return new SuccessResult<UpdateAccountDTO>(request);
+        }
+
         public bool Delete(int id)
         {
             Account? account = context.Accounts.FirstOrDefault(account => account.AccountID == id);
@@ -60,6 +74,11 @@ namespace WebWallet.Services.Accounts
         {
             List < ReadAccountDTO > list = mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
             return mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
+        }
+
+        public Account? GetByID(int id)
+        {
+            return context.Accounts.FirstOrDefault(account => account.AccountID == id);
         }
     }
 }

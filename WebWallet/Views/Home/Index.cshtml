@@ -107,36 +107,36 @@
                 <h4 class="modal-title">Detalhes da Conta</h4>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-controller="Account" asp-action="">
+            <form method="post" asp-controller="Account" asp-action="Update">
                 <div class="modal-body">              
-                    <p>Informe os dados da nova conta</p>
+                    <p>Selecione o campo que deseja editar.</p>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Nome</span>
                         </div>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" value="@account.Name" disabled>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" value="@account.Name">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">R$</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@account.Amount" disabled>
+                        <input type="text" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@account.Amount">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Nº</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)" value="@account.AccountNumber" disabled>
+                        <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)" value="@account.AccountNumber">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de Conta</span>
                         </div>
-                        <select class="form-control" name="accountTypeId" disabled>
+                        <select class="form-control" name="accountTypeId">
                             <option>Escolha...</option>
                             @switch (account.AccountTypeID)
                                 {
@@ -175,7 +175,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" hidden>Salvar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
                     <a type="button" class="btn btn-danger" asp-controller="Account" asp-action="Delete" asp-route-accountid="@account.AccountID">Excluir</a>
                 </div>
             </form>

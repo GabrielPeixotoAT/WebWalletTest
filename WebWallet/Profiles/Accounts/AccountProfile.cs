@@ -9,6 +9,7 @@ namespace WebWallet.Profiles.Accounts
         public AccountProfile() 
         {
             CreateMap<Account, ReadAccountDTO>();
+            CreateMap<UpdateAccountDTO, Account>();
         }
     }
 }
