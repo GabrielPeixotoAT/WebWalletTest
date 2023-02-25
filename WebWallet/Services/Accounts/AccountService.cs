@@ -51,7 +51,11 @@ namespace WebWallet.Services.Accounts
             if(accountUpdate == null)
                 return new ErrorResult<UpdateAccountDTO>(request, "Account not found");
 
-            accountUpdate = mapper.Map<Account>(request);
+            accountUpdate.Name = request.Name;
+            accountUpdate.AccountNumber = request.AccountNumber;
+            accountUpdate.Amount = request.Amount;
+            accountUpdate.AccountTypeID = request.AccountTypeId;
+
             context.SaveChanges();
 
             return new SuccessResult<UpdateAccountDTO>(request);
