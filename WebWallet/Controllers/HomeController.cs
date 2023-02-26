@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebWallet.Data.DTO.Accounts;
+using WebWallet.Data.DTO.Records;
 using WebWallet.Models;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
@@ -29,6 +30,7 @@ namespace WebWallet.Controllers
             HomeViewModel model = new HomeViewModel();
 
             model.Accounts = accountService.GetAll(userId);
+            model.Records = new List<ReadRecordDTO>();
 
             return View(model);
         }

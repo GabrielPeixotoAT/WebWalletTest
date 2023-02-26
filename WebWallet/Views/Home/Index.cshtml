@@ -3,13 +3,14 @@
 }
 
 @using WebWallet.Data.DTO.Accounts;
+@using WebWallet.Data.DTO.Records;
 @using WebWallet.Models.ViewModels
 @model HomeViewModel
 
 @if (User.Identity.IsAuthenticated)
 {
 <div class="text-center">
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header d-inline-flex justify-content-between">
             <div class="display-6">
                 Contas
@@ -42,6 +43,43 @@
         </div>
     </div>
 </div>
+
+<div class="text-center">
+    <div class="card">
+        <div class="card-header d-inline-flex justify-content-between">
+            <div class="display-6">
+                Rgistros
+            </div>
+            <div class="">
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#createAccount">
+                    Novo Registro
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex d-flex flex-wrap">
+                @foreach (ReadRecordDTO record in Model.Records)
+                {
+                    <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@record.RecordId" class="card col-6">
+                        <div class="card-body d-inline-flex justify-content-between">
+                            <div class="text-dark">
+                                @record.RecordTypeId
+                            </div>
+                            <div class="text-dark">
+                                R$ @(record.Value)
+                            </div>
+                            <div>
+                                @record.Date
+                            </div class="text-dark">
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---------------------- MODAIS ---------------------- -->
 
 <!-- CADASTRAR CONTA -->
 <div class="modal" id="createAccount" role="dialog">
