@@ -74,7 +74,7 @@ namespace WebWallet.Services.Accounts
             return true;
         }
 
-        public List<ReadAccountDTO> GetAll()
+        public List<ReadAccountDTO> GetAll(string userId)
         {
             List < ReadAccountDTO > list = mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
             return mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());

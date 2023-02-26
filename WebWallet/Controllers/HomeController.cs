@@ -4,23 +4,28 @@ using WebWallet.Data.DTO.Accounts;
 using WebWallet.Models;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
+using WebWallet.Services.Auth.Interfaces;
 
 namespace WebWallet.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
 
         IAccountService accountService;
+        IUserService userService;
 
-        public HomeController(ILogger<HomeController> logger, IAccountService accountService)
+        public HomeController(ILogger<HomeController> logger, IAccountService accountService, IUserService userService)
         {
-            _logger = logger;
+            this.logger = logger;
             this.accountService = accountService;
+            this.userService = userService;
         }
 
         public IActionResult Index()
         {
+            var userId = userService.GetUserId();
+
             HomeViewModel model = new HomeViewModel();
 
             model.Accounts = accountService.GetAll();

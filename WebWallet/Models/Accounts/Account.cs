@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebWallet.Models.Accounts
 {
@@ -16,5 +17,8 @@ namespace WebWallet.Models.Accounts
         [Required]
         public int AccountTypeID { get; set; }
         public virtual AccountType AccountType { get; set; }
+        [Required]
+        public string UserId { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }

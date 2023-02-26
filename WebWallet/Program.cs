@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using WebWallet.Data;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Accounts;
+using WebWallet.Services.Auth.Interfaces;
+using WebWallet.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
 builder.Services.AddTransient<IAccountService, AccountService>();

@@ -6,6 +6,8 @@
 @using WebWallet.Models.ViewModels
 @model HomeViewModel
 
+@if (User.Identity.IsAuthenticated)
+{
 <div class="text-center">
     <div class="card">
         <div class="card-header d-inline-flex justify-content-between">
@@ -182,4 +184,5 @@
         </div>
     </div>
 </div>
+}
 }
