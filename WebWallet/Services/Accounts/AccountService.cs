@@ -24,24 +24,25 @@ namespace WebWallet.Services.Accounts
             this.accountTypeService = accountTypeService;
         }
 
-        public ActionResult<CreateAccountDTO> Create (CreateAccountDTO createAccoutDTO)
+        public Result<CreateAccountDTO> Create (CreateAccountDTO createAccoutDTO)
         {
             AccountType? accountType = accountTypeService.ReadById(createAccoutDTO.AccountTypeId);
             if (accountType == null)
-                return new NotFoundResult();
+                return new ErrorResult<CreateAccountDTO>(createAccoutDTO, "Type not found");
 
             Account account = new Account()
             {
                 Name = createAccoutDTO.Name,
                 Amount = createAccoutDTO.Amount,
                 AccountNumber = createAccoutDTO.AccountNumber,
-                AccountType = accountType
+                AccountType = accountType,
+                UserId = createAccoutDTO.UserId
             };
 
             context.Accounts.Add(account);
             context.SaveChanges();
 
-            return new CreatedResult("", createAccoutDTO);
+            return new SuccessResult<CreateAccountDTO>(createAccoutDTO, "Created");
         }
 
         public Result<UpdateAccountDTO> Update(UpdateAccountDTO request)
@@ -76,8 +77,7 @@ namespace WebWallet.Services.Accounts
 
         public List<ReadAccountDTO> GetAll(string userId)
         {
-            List < ReadAccountDTO > list = mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
-            return mapper.Map<List<ReadAccountDTO>>(context.Accounts.ToList());
+            return mapper.Map<List<ReadAccountDTO>>(context.Accounts.Where(account => account.UserId == userId));
         }
 
         public Account? GetByID(int id)

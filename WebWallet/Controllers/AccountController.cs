@@ -3,16 +3,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.Result;
 using WebWallet.Services.Accounts.Interfaces;
+using WebWallet.Services.Auth.Interfaces;
 
 namespace WebWallet.Controllers
 {
     public class AccountController : Controller
     {
         private IAccountService accountService;
+        private IUserService userService;
         
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, IUserService userService)
         {
             this.accountService = accountService;
+            this.userService = userService;
         }
 
         public IActionResult Index()
@@ -22,7 +25,12 @@ namespace WebWallet.Controllers
 
         public IActionResult Create(CreateAccountDTO request)
         {
-            ActionResult<CreateAccountDTO> result = accountService.Create(request);
+            request.UserId = userService.GetUserId();
+            
+            Result<CreateAccountDTO> result = accountService.Create(request);
+
+            if(result.HasError)
+                return NotFound();
 
             return Redirect("/");
         }

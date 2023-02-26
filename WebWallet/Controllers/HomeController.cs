@@ -24,11 +24,11 @@ namespace WebWallet.Controllers
 
         public IActionResult Index()
         {
-            var userId = userService.GetUserId();
+            string userId = userService.GetUserId();
 
             HomeViewModel model = new HomeViewModel();
 
-            model.Accounts = accountService.GetAll();
+            model.Accounts = accountService.GetAll(userId);
 
             return View(model);
         }

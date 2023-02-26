@@ -7,10 +7,10 @@ namespace WebWallet.Services.Accounts.Interfaces
 {
     public interface IAccountService
     {
-        ActionResult<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO);
+        Result<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO);
         Result<UpdateAccountDTO> Update(UpdateAccountDTO updateAccountDTO);
         bool Delete(int id);
-        List<ReadAccountDTO> GetAll();
+        List<ReadAccountDTO> GetAll(string userId);
         Account GetByID(int id);
     }
 }
