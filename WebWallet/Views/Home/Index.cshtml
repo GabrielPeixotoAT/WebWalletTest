@@ -51,7 +51,7 @@
                 Rgistros
             </div>
             <div class="">
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#createAccount">
+                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#createRecord">
                     Novo Registro
                 </button>
             </div>
@@ -104,7 +104,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">R$</span>
                         </div>
-                        <input type="number" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
+                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
                     </div>
 
                     <div class="input-group mb-3">
@@ -162,7 +162,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">R$</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@account.Amount">
+                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@account.Amount">
                     </div>
 
                     <div class="input-group mb-3">
@@ -223,4 +223,69 @@
     </div>
 </div>
 }
+
+
+<!-- CADASTRAR REGISTRO -->
+<div class="modal" id="createRecord" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Novo Registro</h4>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" asp-controller="Record" asp-action="Create">
+                <div class="modal-body">
+                    <p>Informe os dados do novo registro</p>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Descrição</span>
+                        </div>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar o registro" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">R$</span>
+                        </div>
+                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Valor">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Tipo de registro</span>
+                        </div>
+                        <select class="form-control" name="recordType" required>
+                            <option selected disabled>Escolha...</option>
+                            <option value="1">Despesa</option>
+                            <option value="2">Receita</option>
+                            <option value="3">Transferência</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Categoria</span>
+                        </div>
+                        <select class="form-control" name="recordSubcategory" required>
+                            <option selected disabled>Escolha...</option>
+                            <option value="1">Alimentação</option>
+                            <option value="2">Transporte</option>
+                            <option value="3">Compras</option>
+                            <option value="4">Entretenimento</option>
+                            <option value="5">Moradia</option>
+                            <option value="6">Automóvel</option>
+                            <option value="7">Despesas Financeiras</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 }
