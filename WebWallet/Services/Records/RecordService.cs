@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WebWallet.Data;
+using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.Records;
 using WebWallet.Data.Result;
 using WebWallet.Models.Accounts;
@@ -35,7 +36,7 @@ namespace WebWallet.Services.Records
             if (record.RecordTypeId == 1)
                 account.Amount -= record.Value;
 
-            else if (record.RecordType.RecordTypeId == 2)
+            else if (record.RecordTypeId == 2)
                 account.Amount += record.Value;
 
             context.Records.Add(record);
@@ -44,9 +45,20 @@ namespace WebWallet.Services.Records
             return new SuccessResult<CreateRecordDTO>(request);
         }
 
-        public List<ReadRecordDTO> GetAll()
+        public List<ReadRecordDTO> GetAll(string userID)
         {
-            return mapper.Map<List<ReadRecordDTO>>(context.Records.ToList());
+            List<ReadAccountDTO> accounts = mapper.Map<List<ReadAccountDTO>>(context.Accounts.Where(account => account.UserId == userID).ToList());
+
+            List<ReadRecordDTO> readRecord = mapper.Map<List<ReadRecordDTO>>(context.Records.ToList());
+
+            List<ReadRecordDTO> readRecordFiltered = new List<ReadRecordDTO>();
+
+            foreach (ReadAccountDTO account in accounts)
+            {
+                readRecord.FindAll(r => r.AccountID == account.AccountID).ForEach(any => readRecordFiltered.Add(any));
+            }
+
+            return readRecordFiltered.OrderBy(record => record.Date).ToList();
         }
     }
 }

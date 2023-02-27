@@ -6,6 +6,6 @@ namespace WebWallet.Services.Records.Interfaces
     public interface IRecordService
     {
         Result<CreateRecordDTO> Create(CreateRecordDTO request);
-        List<ReadRecordDTO> GetAll();
+        List<ReadRecordDTO> GetAll(string userId);
     }
 }

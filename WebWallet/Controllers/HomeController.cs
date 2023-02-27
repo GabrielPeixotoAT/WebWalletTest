@@ -38,7 +38,7 @@ namespace WebWallet.Controllers
             HomeViewModel model = new HomeViewModel();
 
             model.Accounts = accountService.GetAll(userId);
-            model.Records = recordService.GetAll();
+            model.Records = recordService.GetAll(userId);
             model.Categories = recordSubcategoryService.GetAll();
 
             return View(model);
