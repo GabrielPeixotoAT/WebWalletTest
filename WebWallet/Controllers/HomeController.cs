@@ -17,13 +17,18 @@ namespace WebWallet.Controllers
         IAccountService accountService;
         IUserService userService;
         IRecordService recordService;
+        IRecordSubcategoryService recordSubcategoryService;
 
-        public HomeController(ILogger<HomeController> logger, IAccountService accountService, IUserService userService, IRecordService recordService)
+        public HomeController(ILogger<HomeController> logger, 
+            IAccountService accountService, IUserService userService, 
+            IRecordService recordService, 
+            IRecordSubcategoryService recordSubcategoryService)
         {
             this.logger = logger;
             this.accountService = accountService;
             this.userService = userService;
             this.recordService = recordService;
+            this.recordSubcategoryService = recordSubcategoryService;
         }
 
         public IActionResult Index()
@@ -34,6 +39,7 @@ namespace WebWallet.Controllers
 
             model.Accounts = accountService.GetAll(userId);
             model.Records = recordService.GetAll();
+            model.Categories = recordSubcategoryService.GetAll();
 
             return View(model);
         }

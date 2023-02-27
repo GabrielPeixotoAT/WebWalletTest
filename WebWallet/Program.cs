@@ -27,6 +27,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 builder.Services.AddTransient<IRecordService, RecordService>();
+builder.Services.AddTransient<IRecordSubcategoryService, RecordSubcategoryService>();
 
 var app = builder.Build();
 
