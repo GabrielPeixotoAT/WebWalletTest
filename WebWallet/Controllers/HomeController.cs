@@ -40,6 +40,7 @@ namespace WebWallet.Controllers
             model.Accounts = accountService.GetAll(userId);
             model.Records = recordService.GetAll(userId);
             model.Categories = recordSubcategoryService.GetAll();
+            model.CalculateCategoriesSubtotal();
 
             return View(model);
         }

@@ -92,7 +92,7 @@
             <div class="col-4 px-3">
                 <table class="table table-bordered">
                     <thead>
-                        <h5>TOP 5 Categorias (30 dias)</h5>
+                        <h5>Categorias das Despesas</h5>
                         <tr>
                             <th scope="col">Categoria</th>
                             <th scope="col">Valor</th>
@@ -104,7 +104,7 @@
                             {
                                 <tr>
                                     <td scope="row">@category.Description</td>
-                                    <td>R$ 0,00</td>
+                                    <td>R$ @category.SubTotal</td>
                                     <td>00%</td>
                                 </tr>
                             }

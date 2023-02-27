@@ -9,5 +9,6 @@ namespace WebWallet.Data.DTO.RecordsSubcategories
         [Required]
         [StringLength(100)]
         public string Description { get; set; }
+        public Decimal SubTotal { get; set; }
     }
 }
