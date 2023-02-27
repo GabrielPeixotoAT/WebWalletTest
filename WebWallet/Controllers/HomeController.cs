@@ -6,6 +6,7 @@ using WebWallet.Models;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Auth.Interfaces;
+using WebWallet.Services.Records.Interfaces;
 
 namespace WebWallet.Controllers
 {
@@ -15,12 +16,14 @@ namespace WebWallet.Controllers
 
         IAccountService accountService;
         IUserService userService;
+        IRecordService recordService;
 
-        public HomeController(ILogger<HomeController> logger, IAccountService accountService, IUserService userService)
+        public HomeController(ILogger<HomeController> logger, IAccountService accountService, IUserService userService, IRecordService recordService)
         {
             this.logger = logger;
             this.accountService = accountService;
             this.userService = userService;
+            this.recordService = recordService;
         }
 
         public IActionResult Index()
@@ -30,7 +33,7 @@ namespace WebWallet.Controllers
             HomeViewModel model = new HomeViewModel();
 
             model.Accounts = accountService.GetAll(userId);
-            model.Records = new List<ReadRecordDTO>();
+            model.Records = recordService.GetAll();
 
             return View(model);
         }

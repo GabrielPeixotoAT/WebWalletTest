@@ -5,6 +5,8 @@ using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Accounts;
 using WebWallet.Services.Auth.Interfaces;
 using WebWallet.Services.Auth;
+using WebWallet.Services.Records.Interfaces;
+using WebWallet.Services.Records;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddTransient<IRecordService, RecordService>();
 
 var app = builder.Build();
 

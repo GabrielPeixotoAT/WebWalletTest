@@ -241,14 +241,14 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">R$</span>
                         </div>
-                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Valor">
+                        <input type="text" step=".01" class="form-control" aria-label="Valor" name="Value" placeholder="Valor">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Conta</span>
                         </div>
-                        <select class="form-control" name="accountRecord" required>
+                        <select class="form-control" name="AccountID" required>
                             <option selected disabled>Escolha...</option>
                             @foreach(ReadAccountDTO account in Model.Accounts)
                                 {
@@ -261,7 +261,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de registro</span>
                         </div>
-                        <select class="form-control" name="recordType" required>
+                        <select class="form-control" name="RecordTypeId" required>
                             <option selected disabled>Escolha...</option>
                             <option value="1">Despesa</option>
                             <option value="2">Receita</option>
@@ -273,15 +273,14 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Categoria</span>
                         </div>
-                        <select class="form-control" name="recordSubcategory" required>
+                        <select class="form-control" name="RecordSubcategoryId" required>
                             <option selected disabled>Escolha...</option>
                             <option value="1">Alimentação</option>
                             <option value="2">Transporte</option>
                             <option value="3">Compras</option>
                             <option value="4">Entretenimento</option>
                             <option value="5">Moradia</option>
-                            <option value="6">Automóvel</option>
-                            <option value="7">Despesas Financeiras</option>
+                            <option value="6">Despesas Financeiras</option>
                         </select>
                     </div>
 
@@ -289,7 +288,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Data</span>
                         </div>
-                        <input type="datetime-local" class="form-control" aria-describedby="basic-addon1" name="date" required>
+                        <input type="datetime-local" class="form-control" aria-describedby="basic-addon1" name="Date" required>
                     </div>
                 </div>
                 <div class="modal-footer">

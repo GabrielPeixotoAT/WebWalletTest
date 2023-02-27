@@ -12,9 +12,15 @@ namespace WebWallet.Models.Records
         public Decimal Value { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        [Required]
+        public int AccountID { get; set; }
+        [Required]
+        public int RecordTypeId { get; set; }
+        [Required]
+        public int RecordSubcategoryId { get; set; }
         
-        public Account Account { get; set; }
-        public RecordType RecordType { get; set; }
-        public RecordSubcategory RecordSubcategory { get; set; }
+        public virtual Account Account { get; set; }
+        public virtual RecordType RecordType { get; set; }
+        public virtual RecordSubcategory RecordSubcategory { get; set; }
     }
 }
