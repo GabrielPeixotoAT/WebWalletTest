@@ -58,7 +58,7 @@ namespace WebWallet.Services.Records
                 readRecord.FindAll(r => r.AccountID == account.AccountID).ForEach(any => readRecordFiltered.Add(any));
             }
 
-            return readRecordFiltered.OrderBy(record => record.Date).ToList();
+            return readRecordFiltered.OrderByDescending(record => record.Date).ToList();
         }
     }
 }
