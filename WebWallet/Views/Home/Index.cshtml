@@ -73,7 +73,7 @@
                                     <td>@Model.Categories.FirstOrDefault(category => category.RecordSubcategoryId == record.RecordSubcategoryId).Description</td>
                                     <td>@record.Date</td>
                                     <td>
-                                        <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createRecord">
+                                        <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#viewRecord-@record.RecordId">
                                             <span class="material-symbols-outlined small">
                                                 edit
                                             </span>
@@ -330,6 +330,162 @@
         </div>
     </div>
 </div>
+
+
+@foreach(ReadRecordDTO record in Model.Records)
+    {
+        <div class="modal" id="viewRecord-@record.RecordId" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Detalhes do Registro</h4>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form method="post" asp-controller="Record" asp-action="asd">
+                        <div class="modal-body">
+                            <p>Use os campos para alterar os dados</p>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">R$</span>
+                                </div>
+                                <input type="text" step=".01" class="form-control" aria-label="Valor" name="Value" placeholder="Valor" value="@record.Value">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Conta</span>
+                                </div>
+                                <select class="form-control" name="AccountID" required>
+                                    <option selected disabled>Escolha...</option>
+                                    @foreach (ReadAccountDTO account in Model.Accounts)
+                                    {
+                                        @if (account.AccountID == record.AccountID)
+                                        {
+                                            <option selected value="@account.AccountID">@account.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@account.AccountID">@account.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Tipo de registro</span>
+                                </div>
+                                <select class="form-control" name="RecordTypeId" required>
+                                    <option disabled>Escolha...</option>
+                                    @if (record.RecordTypeId == 1)
+                                    {
+                                        <option selected value="1">Despesa</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">Despesa</option>
+                                    }
+                                    @if (record.RecordTypeId == 2)
+                                    {
+                                        <option selected value="2">Receita</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="2">Receita</option>
+                                    }
+                                    @if (record.RecordTypeId == 3)
+                                    {
+                                        <option selected value="3">Transferência</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="3">Transferência</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Categoria</span>
+                                </div>
+                                <select class="form-control" name="RecordSubcategoryId" required>
+                                    <option disabled>Escolha...</option>
+                                    @if (record.RecordSubcategoryId == 1)
+                                    {
+                                        <option selected value="1">Alimentação</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">Alimentação</option>
+                                    }
+
+                                    @if (record.RecordSubcategoryId == 2)
+                                    {
+                                        <option selected value="2">Transporte</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="2">Transporte</option>
+                                    }
+
+                                    @if (record.RecordSubcategoryId == 3)
+                                    {
+                                        <option selected value="3">Compras</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="3">Compras</option>
+                                    }
+
+                                    @if (record.RecordSubcategoryId == 4)
+                                    {
+                                        <option selected value="4">Entretenimento</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="4">Entretenimento</option>
+                                    }
+
+                                    @if (record.RecordSubcategoryId == 5)
+                                    {
+                                        <option selected value="5">Moradia</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="5">Moradia</option>
+                                    }
+
+                                    @if (record.RecordSubcategoryId == 6)
+                                    {
+                                        <option selected value="6">Despesas Financeiras</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="6">Despesas Financeiras</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Data</span>
+                                </div>
+                                <input type="datetime-local" class="form-control" aria-describedby="basic-addon1" name="Date" required value="@record.Date.ToString("yyyy-MM-ddTHH:mm")">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            @if (false)
+                            {
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
 
 }
 else
