@@ -23,5 +23,15 @@ namespace WebWallet.Controllers
 
             return Redirect("/");
         }
+
+        public IActionResult Delete(int id)
+        {
+            Result result = recordService.Delete(id);
+
+            if (result.HasError)
+                return StatusCode(500);
+
+            return Redirect("/");
+        }
     }
 }

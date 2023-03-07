@@ -60,5 +60,33 @@ namespace WebWallet.Services.Records
 
             return readRecordFiltered.OrderByDescending(record => record.Date).ToList();
         }
+
+        Record? GetByID(int id)
+        {
+            return context.Records.FirstOrDefault(r => r.RecordId == id);
+        }
+
+        public Result Delete(int id)
+        {
+            Record? record = GetByID(id);
+
+            if (record == null)
+                return new ErrorResult("Record not found");
+
+            Account? account = context.Accounts.FirstOrDefault(ac => ac.AccountID == record.AccountID);
+
+            if (account == null)
+                return new ErrorResult("Account not found");
+
+            if (record.RecordTypeId == 2)
+                account.Amount -= record.Value;
+            else if (record.RecordTypeId == 1)
+                account.Amount += record.Value;
+
+            context.Records.Remove(record);
+            context.SaveChanges();
+
+            return new SuccessResult();
+        }
     }
 }

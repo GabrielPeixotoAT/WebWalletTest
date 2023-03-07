@@ -331,7 +331,7 @@
     </div>
 </div>
 
-
+<!-- VISUALIZAR REGISTRO -->
 @foreach(ReadRecordDTO record in Model.Records)
     {
         <div class="modal" id="viewRecord-@record.RecordId" role="dialog">
@@ -475,11 +475,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            @if (false)
-                            {
-                                <button type="submit" class="btn btn-success">Salvar</button>
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                            }
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                            <a type="button" class="btn btn-danger" asp-controller="Record" asp-action="Delete" asp-route-id="@record.RecordId">Excluir</a>
                         </div>
                     </form>
                 </div>
