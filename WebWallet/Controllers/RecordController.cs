@@ -19,7 +19,7 @@ namespace WebWallet.Controllers
             Result<CreateRecordDTO> result = recordService.Create(request);
 
             if (result.HasError)
-                return StatusCode(500);
+                return StatusCode(500, result);
 
             return Redirect("/");
         }
@@ -29,7 +29,7 @@ namespace WebWallet.Controllers
             Result result = recordService.Delete(id);
 
             if (result.HasError)
-                return StatusCode(500);
+                return StatusCode(500, result);
 
             return Redirect("/");
         }
