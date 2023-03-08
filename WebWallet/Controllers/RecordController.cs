@@ -24,6 +24,16 @@ namespace WebWallet.Controllers
             return Redirect("/");
         }
 
+        public IActionResult Update(UpdateRecordDTO request)
+        {
+            Result<UpdateRecordDTO> result = recordService.Update(request);
+
+            if (result.HasError)
+                return StatusCode(500, result);
+
+            return Redirect("/");
+        }
+
         public IActionResult Delete(int id)
         {
             Result result = recordService.Delete(id);

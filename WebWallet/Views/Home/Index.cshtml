@@ -341,10 +341,10 @@
                         <h4 class="modal-title">Detalhes do Registro</h4>
                         <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form method="post" asp-controller="Record" asp-action="asd">
+                    <form method="post" asp-controller="Record" asp-action="Update">
                         <div class="modal-body">
                             <p>Use os campos para alterar os dados</p>
-
+                            <input type="hidden" name="RecordId" value="@record.RecordId">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">R$</span>
