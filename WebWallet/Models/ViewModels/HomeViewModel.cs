@@ -9,7 +9,15 @@ namespace WebWallet.Models.ViewModels
         public List<ReadAccountDTO> Accounts { get; set; }
         public List<ReadRecordDTO> Records { get; set; }
         public List<ReadRecordSubcategoryDTO> Categories { get; set; }
+        public Decimal TotalAmount { get; set; } = 0;
 
+        public void CaulculateTotalAmount()
+        {
+            foreach(ReadAccountDTO account in Accounts)
+            {
+                TotalAmount += account.Amount;
+            }
+        }
 
         public void CalculateCategoriesSubtotal()
         {

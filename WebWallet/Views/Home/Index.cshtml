@@ -29,6 +29,11 @@
                 @await Component.InvokeAsync("Account")
             </div>
         </div>
+        <div class="card-body">
+            <div class="h4 m-2">
+                Saldo Total: R$ @Model.TotalAmount.ToString("N2")
+            </div>
+        </div>
     </div>
 </div>
 
@@ -71,7 +76,7 @@
                                     }
                                 
                                     <td>@Model.Categories.FirstOrDefault(category => category.RecordSubcategoryId == record.RecordSubcategoryId).Description</td>
-                                    <td>@record.Date</td>
+                                    <td>@record.Date.ToString("dd/MM/yyyy HH:mm")</td>
                                     <td>
                                         <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#viewRecord-@record.RecordId">
                                             <span class="material-symbols-outlined small">
