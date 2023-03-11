@@ -11,6 +11,6 @@ namespace WebWallet.Services.Accounts.Interfaces
         Result<UpdateAccountDTO> Update(UpdateAccountDTO updateAccountDTO);
         bool Delete(int id);
         List<ReadAccountDTO> GetAll(string userId);
-        Account GetByID(int id);
+        Account? GetByID(int id);
     }
 }

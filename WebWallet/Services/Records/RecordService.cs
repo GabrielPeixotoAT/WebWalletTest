@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using System.Collections;
+using System.Linq;
 using WebWallet.Data;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.Records;
@@ -25,13 +27,12 @@ namespace WebWallet.Services.Records
 
         public Result<CreateRecordDTO> Create(CreateRecordDTO request)
         {
-            Record record = mapper.Map<Record>(request);
-
-            Account? account = accountService.GetByID(record.AccountID);
+            Account? account = accountService.GetByID(request.AccountID);
 
             if (account == null)
                 return new ErrorResult<CreateRecordDTO>(request, "Account not found");
 
+            Record record = mapper.Map<Record>(request);
 
             if (record.RecordTypeId == 1)
                 account.Amount -= record.Value;
@@ -47,18 +48,18 @@ namespace WebWallet.Services.Records
 
         public List<ReadRecordDTO> GetAll(string userID)
         {
-            List<ReadAccountDTO> accounts = mapper.Map<List<ReadAccountDTO>>(context.Accounts.Where(account => account.UserId == userID).ToList());
+            List<ReadRecordDTO> records = context.Accounts.Where(account => account.UserId == userID).Join(context.Records,
+                account => account.AccountID, record => record.AccountID, (account, record) => new ReadRecordDTO
+                {
+                    RecordId = record.RecordId,
+                    Value = record.Value,
+                    Date = record.Date,
+                    AccountID = record.AccountID,
+                    RecordTypeId = record.RecordTypeId,
+                    RecordSubcategoryId = record.RecordSubcategoryId
+                }).OrderByDescending(record => record.Date).ToList();
 
-            List<ReadRecordDTO> readRecord = mapper.Map<List<ReadRecordDTO>>(context.Records.ToList());
-
-            List<ReadRecordDTO> readRecordFiltered = new List<ReadRecordDTO>();
-
-            foreach (ReadAccountDTO account in accounts)
-            {
-                readRecord.FindAll(r => r.AccountID == account.AccountID).ForEach(any => readRecordFiltered.Add(any));
-            }
-
-            return readRecordFiltered.OrderByDescending(record => record.Date).ToList();
+            return records;
         }
 
         Record? GetByID(int id)
@@ -73,7 +74,7 @@ namespace WebWallet.Services.Records
             if (record == null) 
                 return new ErrorResult<UpdateRecordDTO>(request, "Record not found");
 
-            Account? account = context.Accounts.FirstOrDefault(ac => ac.AccountID == request.AccountID);
+            Account? account = accountService.GetByID(request.AccountID);
 
             if (account == null)
                 return new ErrorResult<UpdateRecordDTO>(request, "Account not found");
@@ -123,7 +124,7 @@ namespace WebWallet.Services.Records
             if (record == null)
                 return new ErrorResult("Record not found");
 
-            Account? account = context.Accounts.FirstOrDefault(ac => ac.AccountID == record.AccountID);
+            Account? account = accountService.GetByID(record.AccountID);
 
             if (account == null)
                 return new ErrorResult("Account not found");
