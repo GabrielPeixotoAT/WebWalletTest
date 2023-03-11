@@ -69,40 +69,41 @@ namespace WebWallet.Services.Records
 
         public Result<UpdateRecordDTO> Update(UpdateRecordDTO request)
         {
-            Record? record = context.Records.FirstOrDefault(r => r.RecordId == request.RecordId);
+            Record? record = GetByID(request.RecordId);
 
             if (record == null) 
                 return new ErrorResult<UpdateRecordDTO>(request, "Record not found");
 
-            Account? account = accountService.GetByID(request.AccountID);
+            Account? oldAccount = accountService.GetByID(record.AccountID);
+            Account? newAccount = accountService.GetByID(request.AccountID);
 
-            if (account == null)
+            if (oldAccount == null || newAccount == null)
                 return new ErrorResult<UpdateRecordDTO>(request, "Account not found");
 
             if (record.RecordTypeId == 1)
             {
                 if (request.RecordTypeId == 1)
                 {
-                    account.Amount += record.Value;
-                    account.Amount -= request.Value;
+                    oldAccount.Amount += record.Value;
+                    newAccount.Amount -= request.Value;
                 }
                 else if (request.RecordTypeId == 2)
                 {
-                    account.Amount += record.Value;
-                    account.Amount += request.Value;
+                    oldAccount.Amount += record.Value;
+                    newAccount.Amount += request.Value;
                 }
             }
             else if (record.RecordTypeId == 2)
             {
                 if (request.RecordTypeId == 1)
                 {
-                    account.Amount -= record.Value;
-                    account.Amount -= request.Value;
+                    oldAccount.Amount -= record.Value;
+                    newAccount.Amount -= request.Value;
                 }
                 else if (request.RecordTypeId == 2)
                 {
-                    account.Amount -= record.Value;
-                    account.Amount += request.Value;
+                    oldAccount.Amount -= record.Value;
+                    newAccount.Amount += request.Value;
                 }
             }
 
