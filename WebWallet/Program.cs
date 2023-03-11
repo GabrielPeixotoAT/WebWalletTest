@@ -17,7 +17,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-new DIP(builder.Services);
+new DIP(builder.Services);  
 
 var app = builder.Build();
 
