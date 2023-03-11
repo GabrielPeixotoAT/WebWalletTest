@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.Result;
+using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Auth.Interfaces;
 
@@ -20,7 +21,11 @@ namespace WebWallet.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string userId = userService.GetUserId();
+
+            AccountViewModel model = new AccountViewModel(accountService.GetAll(userId));
+
+            return View(model);
         }
 
         public IActionResult Create(CreateAccountDTO request)
