@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebWallet.Data;
-using WebWallet.Services.Accounts.Interfaces;
-using WebWallet.Services.Accounts;
-using WebWallet.Services.Auth.Interfaces;
-using WebWallet.Services.Auth;
-using WebWallet.Services.Records.Interfaces;
-using WebWallet.Services.Records;
+using WebWallet.DIP;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,12 +17,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddTransient<IAccountTypeService, AccountTypeService>();
-builder.Services.AddTransient<IAccountService, AccountService>();
-builder.Services.AddTransient<IRecordService, RecordService>();
-builder.Services.AddTransient<IRecordSubcategoryService, RecordSubcategoryService>();
+new DIP(builder.Services);
 
 var app = builder.Build();
 
