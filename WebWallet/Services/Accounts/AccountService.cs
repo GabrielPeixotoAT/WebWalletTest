@@ -26,7 +26,8 @@ namespace WebWallet.Services.Accounts
 
         public Result<CreateAccountDTO> Create (CreateAccountDTO createAccoutDTO)
         {
-            AccountType? accountType = accountTypeService.ReadById(createAccoutDTO.AccountTypeId);
+            AccountType? accountType = accountTypeService.GetById(createAccoutDTO.AccountTypeId);
+
             if (accountType == null)
                 return new ErrorResult<CreateAccountDTO>(createAccoutDTO, "Type not found");
 

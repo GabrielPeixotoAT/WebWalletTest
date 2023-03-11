@@ -26,7 +26,24 @@
         </div>
         <div class="card-body">
             <div class="d-flex flex-wrap">
-                @await Component.InvokeAsync("Account")
+                @foreach (ReadAccountDTO account in Model.Accounts)
+                    {
+                        <div class="p-1 col-6">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="card col-12 shadow-sm text-dark">
+                                <div class="card-body d-inline-flex justify-content-between">
+                                    <div class="">
+                                        @account.Name
+                                    </div>
+                                    <div class="">
+                                        R$ @(account.Amount)
+                                    </div>
+                                    <div class="">
+                                        @account.AccountNumber
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
             </div>
         </div>
         <div class="card-body">

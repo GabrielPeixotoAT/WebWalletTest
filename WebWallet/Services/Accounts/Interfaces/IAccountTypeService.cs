@@ -1,9 +1,11 @@
-﻿using WebWallet.Models.Accounts;
+﻿using WebWallet.Data.DTO.AccountType;
+using WebWallet.Models.Accounts;
 
 namespace WebWallet.Services.Accounts.Interfaces
 {
     public interface IAccountTypeService
     {
-        AccountType? ReadById(int id);
+        AccountType? GetById(int id);
+        List<ReadAccountTypeDTO> GetAll();
     }
 }
