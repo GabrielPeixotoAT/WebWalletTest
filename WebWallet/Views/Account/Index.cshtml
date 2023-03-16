@@ -3,70 +3,102 @@
 }
 
 @using WebWallet.Data.DTO.Accounts;
+@using WebWallet.Data.DTO.AccountType;
 @using WebWallet.Models.ViewModels
 @model AccountViewModel
 
 @if (User.Identity.IsAuthenticated)
 {
-    <div class="text-center d-inline-flex">
-        <div class="card col-10 m-1">
-            <div class="card-header d-inline-flex justify-content-between">
-                <div class="h3 mb-0">
-                    Contas
-                </div>
-                <div class="">
-                    
+    <div class="text-center">
+        <div class="row">
+            <div class="col-8">
+                <div class="card shadow">
+                    <div class="card-header d-inline-flex justify-content-between">
+                        <div class="h3 mb-0">
+                            Contas
+                        </div>
+                        <div class="">
+                            
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="fAccountType" class="text-left">Tipo de Conta</label>
+                                <select class="form-control" name="fAccountType">
+                                    <option value="0" selected disabled>Selecione...</option>
+                                    @foreach (ReadAccountTypeDTO type in Model.AccountTypes)
+                                    {
+                                        <option value="@type.AccountTypeID">@type.Description</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="fAccountType" class="text-left">Ordenar por Saldo</label>
+                                <select class="form-control" name="fAccountType">
+                                    <option selected value="1">Crescente</option>
+                                    <option value="2">Decrescente</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <label for="btn-apply" class="text-left"><span></span></label>
+                                <a href="#" class="btn btn-outline-secondary col-12" name="btn-apply">Aplicar</a> 
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-striped table-borderless">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Saldo</th>
+                                        <th scope="col">Número</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(ReadAccountDTO account in Model.Accounts)
+                                    {
+                                        <tr>
+                                            <td scope="row">@Model.AccountTypes.FirstOrDefault(at => at.AccountTypeID == account.AccountTypeID).Description</td>
+                                            <td scope="row">@account.Name</td>
+                                            <td scope="row">@account.Amount</td>
+                                            <td scope="row">@account.AccountNumber</td>
+                                            <td scope="row">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="btn btn-outline-secondary pb-0 btn-sm">
+                                                    <span class="material-symbols-outlined small">
+                                                        edit
+                                                    </span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div>
-                    <table class="table table-striped table-borderless">
-                        <thead class="bg-light">
-                            <tr>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Saldo</th>
-                                <th scope="col">Número</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach(ReadAccountDTO account in Model.Accounts)
-                            {
-                                <tr>
-                                    <td scope="row">@Model.AccountTypes.FirstOrDefault(at => at.AccountTypeID == account.AccountTypeID).Description</td>
-                                    <td scope="row">@account.Name</td>
-                                    <td scope="row">@account.Amount</td>
-                                    <td scope="row">@account.AccountNumber</td>
-                                    <td scope="row">
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="btn btn-outline-secondary pb-0 btn-sm">
-                                            <span class="material-symbols-outlined small">
-                                                edit
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card col-5 m-2">
-            <div class="card-header d-inline-flex justify-content-between">
-                <div>
+            <div class="col-4">
+                <div class="card shadow">
+                    <div class="card-header d-inline-flex justify-content-between">
+                        <div>
 
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createAccount">
+                            Nova Conta
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="h4 m-1">
+                            Saldo Total: R$ @Model.TotalAmount.ToString("N2")
+                        </div>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createAccount">
-                    Nova Conta
-                </button>
             </div>
-            <div class="card-body">
-                <div class="h4 m-1">
-                    Saldo Total: R$ @Model.TotalAmount.ToString("N2")
-                </div>
-            </div>
-
         </div>
     </div>
 
