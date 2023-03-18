@@ -4,6 +4,7 @@
 
 @using WebWallet.Data.DTO.Accounts;
 @using WebWallet.Data.DTO.AccountType;
+@using WebWallet.Data.DTO.Records;
 @using WebWallet.Models.ViewModels;
 @model AccountDetailViewModel;
 
@@ -31,21 +32,21 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1">Nome</span>
                                     </div>
-                                    <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" value="@Model.Name">
+                                    <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" value="@Model.Account.Name">
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">R$</span>
                                     </div>
-                                    <input type="text" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@Model.Amount">
+                                    <input type="text" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@Model.Account.Amount">
                                 </div>
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Nº</span>
                                     </div>
-                                    <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)" value="@Model.AccountNumber">
+                                    <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)" value="@Model.Account.AccountNumber">
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -54,7 +55,7 @@
                                     </div>
                                     <select class="form-control" name="accountTypeId">
                                         <option>Escolha...</option>
-                                        @switch (Model.AccountTypeID)
+                                        @switch (Model.Account.AccountTypeID)
                                         {
                                             case 1:
                                                 <option selected value="1">Dinheiro</option>
@@ -92,7 +93,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-success">Salvar</button>
-                                <a type="button" class="btn btn-danger" asp-controller="Account" asp-action="Delete" asp-route-accountid="@Model.AccountID">Excluir</a>
+                                <a type="button" class="btn btn-danger" asp-controller="Account" asp-action="Delete" asp-route-accountid="@Model.Account.AccountID">Excluir</a>
                             </div>
                         </form>
                     </div>
@@ -103,7 +104,7 @@
                                 <label for="fAccountType" class="text-left">Tipo de Conta</label>
                                 <select class="form-control" name="fAccountType">
                                     <option value="0" selected disabled>Selecione...</option>
-                                    @foreach (ReadAccountTypeDTO type in Model.AccountTypes)
+                                    @foreach (ReadAccountTypeDTO type in Model.AccountType)
                                     {
                                         <option value="@type.AccountTypeID">@type.Description</option>
                                     }
@@ -135,15 +136,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(ReadAccountDTO account in Model.Accounts)
+                                    @foreach(ReadRecordDTO record in Model.Records)
                                     {
                                         <tr>
-                                            <td scope="row">@Model.AccountTypes.FirstOrDefault(at => at.AccountTypeID == account.AccountTypeID).Description</td>
-                                            <td scope="row">@account.Name</td>
-                                            <td scope="row">@account.Amount</td>
-                                            <td scope="row">@account.AccountNumber</td>
+                                            <td scope="row">@Model.RecordTypes.FirstOrDefault(r => r.RecordTypeId == record.RecordTypeId).Description</td>
+                                            <td scope="row">@record.RecordSubcategoryId</td>
+                                            <td scope="row">@record.Value</td>
+                                            <td scope="row">@record.Date</td>
                                             <td scope="row">
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="btn btn-outline-secondary pb-0 btn-sm">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@record.RecordId" class="btn btn-outline-secondary pb-0 btn-sm">
                                                     <span class="material-symbols-outlined small">
                                                         edit
                                                     </span>
@@ -169,158 +170,13 @@
                     </div>
                     <div class="card-body">
                         <div class="h4 m-1">
-                            Saldo Total: R$ @Model.TotalAmount.ToString("N2")
+                            Saldo Total: R$ @Model.Account.Amount.ToString("N2")
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- ---------------------- MODAIS ---------------------- -->
-
-    <!-- CADASTRAR CONTA -->
-    <div class="modal" id="createAccount" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Nova Conta</h4>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form method="post" asp-controller="Account" asp-action="Create">
-                    <div class="modal-body">              
-                        <p>Informe os dados da nova conta</p>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Nome</span>
-                            </div>
-                            <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" required>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">R$</span>
-                            </div>
-                            <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Nº</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Tipo de Conta</span>
-                            </div>
-                            <select class="form-control" name="accountTypeId" required>
-                                <option selected disabled>Escolha...</option>
-                                <option value="1">Dinheiro</option>
-                                <option value="2">Conta Corrente</option>
-                                <option value="3">Conta Poupança</option>
-                                <option value="4">Conta em Corretora</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- VISUALIZA CONTA -->
-    @foreach (ReadAccountDTO account in Model.Accounts)
-    {
-        <div class="modal" id="viewAccount-@account.AccountID" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Detalhes da Conta</h4>
-                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <form method="post" asp-controller="Account" asp-action="Update">
-                        <div class="modal-body">              
-                            <p>Selecione o campo que deseja editar.</p>
-                            <input type="text" name="AccountId" value="@account.AccountID" hidden>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">Nome</span>
-                                </div>
-                                <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" value="@account.Name">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">R$</span>
-                                </div>
-                                <input type="text" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo" value="@account.Amount">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Nº</span>
-                                </div>
-                                <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)" value="@account.AccountNumber">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Tipo de Conta</span>
-                                </div>
-                                <select class="form-control" name="accountTypeId">
-                                    <option>Escolha...</option>
-                                    @switch (account.AccountTypeID)
-                                    {
-                                        case 1:
-                                            <option selected value="1">Dinheiro</option>
-                                            <option value="2">Conta Corrente</option>
-                                            <option value="3">Conta Poupança</option>
-                                            <option value="4">Conta em Corretora</option>
-                                            break;
-                                        case 2:
-                                            <option value="1">Dinheiro</option>
-                                            <option selected value="2">Conta Corrente</option>
-                                            <option value="3">Conta Poupança</option>
-                                            <option value="4">Conta em Corretora</option>
-                                            break;
-                                        case 3:
-                                            <option value="1">Dinheiro</option>
-                                            <option value="2">Conta Corrente</option>
-                                            <option selected value="3">Conta Poupança</option>
-                                            <option value="4">Conta em Corretora</option>
-                                            break;
-                                        case 4:
-                                            <option value="1">Dinheiro</option>
-                                            <option value="2">Conta Corrente</option>
-                                            <option value="3">Conta Poupança</option>
-                                            <option selected value="4">Conta em Corretora</option>
-                                            break;
-                                        default:
-                                            <option value="1">Dinheiro</option>
-                                            <option value="2">Conta Corrente</option>
-                                            <option value="3">Conta Poupança</option>
-                                            <option value="4">Conta em Corretora</option>
-                                            break;
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Salvar</button>
-                            <a type="button" class="btn btn-danger" asp-controller="Account" asp-action="Delete" asp-route-accountid="@account.AccountID">Excluir</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    }
 }
 else
 {

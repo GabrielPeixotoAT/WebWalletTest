@@ -17,6 +17,7 @@ namespace WebWallet.DIP
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IRecordService, RecordService>();
             services.AddTransient<IRecordSubcategoryService, RecordSubcategoryService>();
+            services.AddTransient<IRecordTypeService, RecordTypeService>();
         }
     }
 }

@@ -7,6 +7,7 @@ namespace WebWallet.Services.Records.Interfaces
     {
         Result<CreateRecordDTO> Create(CreateRecordDTO request);
         List<ReadRecordDTO> GetAll(string userId);
+        List<ReadRecordDTO> GetByAccount(int accountID);
         Result<UpdateRecordDTO> Update(UpdateRecordDTO request);
         Result Delete(int id);
     }

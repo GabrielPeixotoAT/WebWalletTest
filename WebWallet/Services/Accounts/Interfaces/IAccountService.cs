@@ -12,5 +12,6 @@ namespace WebWallet.Services.Accounts.Interfaces
         bool Delete(int id);
         List<ReadAccountDTO> GetAll(string userId);
         Account? GetByID(int id);
+        ReadAccountDTO? GetByIDExternal(int id);
     }
 }

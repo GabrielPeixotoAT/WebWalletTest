@@ -67,6 +67,11 @@ namespace WebWallet.Services.Records
             return context.Records.FirstOrDefault(r => r.RecordId == id);
         }
 
+        public List<ReadRecordDTO> GetByAccount(int accountID)
+        {
+            return mapper.Map<List<ReadRecordDTO>>(context.Records.Where(r => r.AccountID == accountID));
+        }
+
         public Result<UpdateRecordDTO> Update(UpdateRecordDTO request)
         {
             Record? record = GetByID(request.RecordId);

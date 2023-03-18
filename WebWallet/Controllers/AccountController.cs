@@ -6,6 +6,8 @@ using WebWallet.Data.Result;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Auth.Interfaces;
+using WebWallet.Services.Records.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebWallet.Controllers
 {
@@ -14,12 +16,21 @@ namespace WebWallet.Controllers
         private IAccountService accountService;
         private IUserService userService;
         private IAccountTypeService accountTypeService;
+        private IRecordService recordService;
+        private IRecordTypeService recordTypeService;
 
-        public AccountController(IAccountService accountService, IUserService userService, IAccountTypeService accountTypeService)
+        public AccountController(
+            IAccountService accountService, 
+            IUserService userService, 
+            IAccountTypeService accountTypeService, 
+            IRecordService recordService, 
+            IRecordTypeService recordTypeService)
         {
             this.accountService = accountService;
             this.userService = userService;
             this.accountTypeService = accountTypeService;
+            this.recordService = recordService;
+            this.recordTypeService = recordTypeService;
         }
 
         public IActionResult Index()
@@ -59,6 +70,20 @@ namespace WebWallet.Controllers
             bool result = accountService.Delete(accountid);
 
             return Redirect("/");
+        }
+
+        public IActionResult AccountDetail(int accountid)
+        {
+            string userId = userService.GetUserId();
+
+            AccountDetailViewModel model = new AccountDetailViewModel();
+
+            model.Account = accountService.GetByIDExternal(accountid);
+            model.Records = recordService.GetByAccount(accountid);
+            model.AccountType = accountTypeService.GetAll();
+            model.RecordTypes = recordTypeService.GetAll();
+
+            return View(model);
         }
     }
 }

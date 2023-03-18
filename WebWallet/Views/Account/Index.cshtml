@@ -68,7 +68,7 @@
                                             <td scope="row">@account.Amount</td>
                                             <td scope="row">@account.AccountNumber</td>
                                             <td scope="row">
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="btn btn-outline-secondary pb-0 btn-sm">
+                                                <a asp-controller="Account" asp-action="AccountDetail" asp-route-accountId="@account.AccountID" class="btn btn-outline-secondary pb-0 btn-sm">
                                                     <span class="material-symbols-outlined small">
                                                         edit
                                                     </span>
