@@ -18,19 +18,22 @@ namespace WebWallet.Controllers
         private IAccountTypeService accountTypeService;
         private IRecordService recordService;
         private IRecordTypeService recordTypeService;
+        private IRecordSubcategoryService recordSubcategoryService;
 
         public AccountController(
             IAccountService accountService, 
             IUserService userService, 
             IAccountTypeService accountTypeService, 
             IRecordService recordService, 
-            IRecordTypeService recordTypeService)
+            IRecordTypeService recordTypeService, 
+            IRecordSubcategoryService recordSubcategoryService)
         {
             this.accountService = accountService;
             this.userService = userService;
             this.accountTypeService = accountTypeService;
             this.recordService = recordService;
             this.recordTypeService = recordTypeService;
+            this.recordSubcategoryService = recordSubcategoryService;
         }
 
         public IActionResult Index()
@@ -82,6 +85,7 @@ namespace WebWallet.Controllers
             model.Records = recordService.GetByAccount(accountid);
             model.AccountType = accountTypeService.GetAll();
             model.RecordTypes = recordTypeService.GetAll();
+            model.RecordSubcategories = recordSubcategoryService.GetAll();
 
             return View(model);
         }
