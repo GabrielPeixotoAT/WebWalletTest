@@ -86,9 +86,9 @@ namespace WebWallet.Services.Accounts
             return context.Accounts.FirstOrDefault(account => account.AccountID == id);
         }
 
-        public ReadAccountDTO? GetByIDExternal(int id)
+        public ReadAccountDTO? GetByIDExternal(int id, string userId)
         {
-            return mapper.Map<ReadAccountDTO>(context.Accounts.FirstOrDefault(account => account.AccountID == id));
+            return mapper.Map<ReadAccountDTO>(context.Accounts.FirstOrDefault(account => account.AccountID == id && account.UserId == userId));
         }
     }
 }

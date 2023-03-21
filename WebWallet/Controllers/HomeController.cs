@@ -20,7 +20,8 @@ namespace WebWallet.Controllers
         IRecordSubcategoryService recordSubcategoryService;
 
         public HomeController(ILogger<HomeController> logger, 
-            IAccountService accountService, IUserService userService, 
+            IAccountService accountService, 
+            IUserService userService, 
             IRecordService recordService, 
             IRecordSubcategoryService recordSubcategoryService)
         {

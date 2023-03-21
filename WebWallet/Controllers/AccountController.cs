@@ -81,7 +81,7 @@ namespace WebWallet.Controllers
 
             AccountDetailViewModel model = new AccountDetailViewModel();
 
-            model.Account = accountService.GetByIDExternal(accountid);
+            model.Account = accountService.GetByIDExternal(accountid, userId);
             model.Records = recordService.GetByAccount(accountid);
             model.AccountType = accountTypeService.GetAll();
             model.RecordTypes = recordTypeService.GetAll();
