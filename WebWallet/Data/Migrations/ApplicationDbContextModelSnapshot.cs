@@ -256,7 +256,7 @@ namespace WebWallet.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("Accounts", (string)null);
                 });
 
             modelBuilder.Entity("WebWallet.Models.Accounts.AccountType", b =>
@@ -273,16 +273,16 @@ namespace WebWallet.Data.Migrations
 
                     b.HasKey("AccountTypeID");
 
-                    b.ToTable("AccountTypes");
+                    b.ToTable("AccountTypes", (string)null);
                 });
 
             modelBuilder.Entity("WebWallet.Models.Records.Record", b =>
                 {
-                    b.Property<int>("RecordId")
+                    b.Property<int>("RecordID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordID"), 1L, 1);
 
                     b.Property<int>("AccountID")
                         .HasColumnType("int");
@@ -290,83 +290,83 @@ namespace WebWallet.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RecordSubcategoryId")
+                    b.Property<int>("RecordSubcategoryID")
                         .HasColumnType("int");
 
-                    b.Property<int>("RecordTypeId")
+                    b.Property<int>("RecordTypeID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("RecordId");
+                    b.HasKey("RecordID");
 
                     b.HasIndex("AccountID");
 
-                    b.HasIndex("RecordSubcategoryId");
+                    b.HasIndex("RecordSubcategoryID");
 
-                    b.HasIndex("RecordTypeId");
+                    b.HasIndex("RecordTypeID");
 
-                    b.ToTable("Records");
+                    b.ToTable("Records", (string)null);
                 });
 
             modelBuilder.Entity("WebWallet.Models.Records.RecordCategory", b =>
                 {
-                    b.Property<int>("RecordCategoryId")
+                    b.Property<int>("RecordCategoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordCategoryId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordCategoryID"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("RecordCategoryId");
+                    b.HasKey("RecordCategoryID");
 
-                    b.ToTable("RecordCategories");
+                    b.ToTable("RecordCategories", (string)null);
                 });
 
             modelBuilder.Entity("WebWallet.Models.Records.RecordSubcategory", b =>
                 {
-                    b.Property<int>("RecordSubcategoryId")
+                    b.Property<int>("RecordSubcategoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordSubcategoryId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordSubcategoryID"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("RecordCategoryId")
+                    b.Property<int>("RecordCategoryID")
                         .HasColumnType("int");
 
-                    b.HasKey("RecordSubcategoryId");
+                    b.HasKey("RecordSubcategoryID");
 
-                    b.HasIndex("RecordCategoryId");
+                    b.HasIndex("RecordCategoryID");
 
-                    b.ToTable("RecordSubcategories");
+                    b.ToTable("RecordSubcategories", (string)null);
                 });
 
             modelBuilder.Entity("WebWallet.Models.Records.RecordType", b =>
                 {
-                    b.Property<int>("RecordTypeId")
+                    b.Property<int>("RecordTypeID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordTypeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordTypeID"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("RecordTypeId");
+                    b.HasKey("RecordTypeID");
 
-                    b.ToTable("RecordTypes");
+                    b.ToTable("RecordTypes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -449,13 +449,13 @@ namespace WebWallet.Data.Migrations
 
                     b.HasOne("WebWallet.Models.Records.RecordSubcategory", "RecordSubcategory")
                         .WithMany()
-                        .HasForeignKey("RecordSubcategoryId")
+                        .HasForeignKey("RecordSubcategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebWallet.Models.Records.RecordType", "RecordType")
                         .WithMany()
-                        .HasForeignKey("RecordTypeId")
+                        .HasForeignKey("RecordTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -470,7 +470,7 @@ namespace WebWallet.Data.Migrations
                 {
                     b.HasOne("WebWallet.Models.Records.RecordCategory", "RecordCategory")
                         .WithMany("RecordSubcategory")
-                        .HasForeignKey("RecordCategoryId")
+                        .HasForeignKey("RecordCategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

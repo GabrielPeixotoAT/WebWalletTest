@@ -26,27 +26,27 @@ namespace WebWallet.Data.Migrations
                 name: "RecordTypes",
                 columns: table => new
                 {
-                    RecordTypeId = table.Column<int>(type: "int", nullable: false)
+                    RecordTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecordTypes", x => x.RecordTypeId);
+                    table.PrimaryKey("PK_RecordTypes", x => x.RecordTypeID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "RecordSubcategories",
                 columns: table => new
                 {
-                    RecordSubcategoryId = table.Column<int>(type: "int", nullable: false)
+                    RecordSubcategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RecordCategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecordSubcategories", x => x.RecordSubcategoryId);
+                    table.PrimaryKey("PK_RecordSubcategories", x => x.RecordSubcategoryID);
                     table.ForeignKey(
                         name: "FK_RecordSubcategories_RecordCategories_RecordCategoryId",
                         column: x => x.RecordCategoryId,
@@ -59,17 +59,17 @@ namespace WebWallet.Data.Migrations
                 name: "Records",
                 columns: table => new
                 {
-                    RecordId = table.Column<int>(type: "int", nullable: false)
+                    RecordID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AccountID = table.Column<int>(type: "int", nullable: false),
-                    RecordTypeId = table.Column<int>(type: "int", nullable: false),
-                    RecordSubcategoryId = table.Column<int>(type: "int", nullable: false)
+                    RecordTypeID = table.Column<int>(type: "int", nullable: false),
+                    RecordSubcategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Records", x => x.RecordId);
+                    table.PrimaryKey("PK_Records", x => x.RecordID);
                     table.ForeignKey(
                         name: "FK_Records_Accounts_AccountID",
                         column: x => x.AccountID,
@@ -77,16 +77,16 @@ namespace WebWallet.Data.Migrations
                         principalColumn: "AccountID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Records_RecordSubcategories_RecordSubcategoryId",
-                        column: x => x.RecordSubcategoryId,
+                        name: "FK_Records_RecordSubcategories_RecordSubcategoryID",
+                        column: x => x.RecordSubcategoryID,
                         principalTable: "RecordSubcategories",
-                        principalColumn: "RecordSubcategoryId",
+                        principalColumn: "RecordSubcategoryID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Records_RecordTypes_RecordTypeId",
-                        column: x => x.RecordTypeId,
+                        name: "FK_Records_RecordTypes_RecordTypeID",
+                        column: x => x.RecordTypeID,
                         principalTable: "RecordTypes",
-                        principalColumn: "RecordTypeId",
+                        principalColumn: "RecordTypeID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -96,14 +96,14 @@ namespace WebWallet.Data.Migrations
                 column: "AccountID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_RecordSubcategoryId",
+                name: "IX_Records_RecordSubcategoryID",
                 table: "Records",
-                column: "RecordSubcategoryId");
+                column: "RecordSubcategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_RecordTypeId",
+                name: "IX_Records_RecordTypeID",
                 table: "Records",
-                column: "RecordTypeId");
+                column: "RecordTypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecordSubcategories_RecordCategoryId",

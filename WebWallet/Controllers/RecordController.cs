@@ -14,6 +14,11 @@ namespace WebWallet.Controllers
             this.recordService = recordService;
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public IActionResult Create(CreateRecordDTO request)
         {
             Result<CreateRecordDTO> result = recordService.Create(request);

@@ -7,7 +7,7 @@ namespace WebWallet.Models.Records
     {
         [Key]
         [Required]
-        public int RecordId { get; set; }
+        public int RecordID { get; set; }
         [Required]
         public Decimal Value { get; set; }
         [Required]
@@ -15,9 +15,9 @@ namespace WebWallet.Models.Records
         [Required]
         public int AccountID { get; set; }
         [Required]
-        public int RecordTypeId { get; set; }
+        public int RecordTypeID { get; set; }
         [Required]
-        public int RecordSubcategoryId { get; set; }
+        public int RecordSubcategoryID { get; set; }
         
         public virtual Account Account { get; set; }
         public virtual RecordType RecordType { get; set; }

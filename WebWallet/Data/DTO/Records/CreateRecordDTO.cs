@@ -15,8 +15,8 @@ namespace WebWallet.Data.DTO.Records
         [Required]
         public int AccountID { get; set; }
         [Required]
-        public int RecordTypeId { get; set; }
+        public int RecordTypeID { get; set; }
         [Required]
-        public int RecordSubcategoryId { get; set; }
+        public int RecordSubcategoryID { get; set; }
     }
 }

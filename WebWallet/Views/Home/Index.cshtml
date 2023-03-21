@@ -84,7 +84,7 @@
                                 <tr>
                                     <td scope="row">@Model.Accounts.FirstOrDefault(account => account.AccountID == record.AccountID).Name</td>
 
-                                    @if(record.RecordTypeId == 1)
+                                    @if(record.RecordTypeID == 1)
                                     {
                                         <td class="text-danger">-@record.Value</td>
                                     }else
@@ -92,10 +92,10 @@
                                         <td class="text-success">+@record.Value</td>
                                     }
                                 
-                                    <td>@Model.Categories.FirstOrDefault(category => category.RecordSubcategoryId == record.RecordSubcategoryId).Description</td>
+                                    <td>@Model.Categories.FirstOrDefault(category => category.RecordSubcategoryID == record.RecordSubcategoryID).Description</td>
                                     <td>@record.Date.ToString("dd/MM/yyyy HH:mm")</td>
                                     <td>
-                                        <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#viewRecord-@record.RecordId">
+                                        <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#viewRecord-@record.RecordID">
                                             <span class="material-symbols-outlined small">
                                                 edit
                                             </span>
@@ -142,7 +142,7 @@
                 <h4 class="modal-title">Nova Conta</h4>
                 <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" asp-controller="Account" asp-action="Create">
+                <form method="post" asp-controller="Account" asp-action="Create">
                 <div class="modal-body">              
                     <p>Informe os dados da nova conta</p>
 
@@ -150,28 +150,28 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Nome</span>
                         </div>
-                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="name" placeholder="Para identificar a conta" required>
+                        <input type="text" class="form-control" aria-describedby="basic-addon1" name="Name" placeholder="Para identificar a conta" required>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">R$</span>
                         </div>
-                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
+                        <input type="number" step=".01" class="form-control" aria-label="Saldo" name="Amount" placeholder="Saldo">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Nº</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)">
+                        <input type="text" class="form-control" aria-label="Numero da Conta" name="AccountNumber" placeholder="Número da Conta (opcional)">
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de Conta</span>
                         </div>
-                        <select class="form-control" name="accountTypeId" required>
+                        <select class="form-control" name="AccountTypeID" required>
                             <option selected disabled>Escolha...</option>
                             <option value="1">Dinheiro</option>
                             <option value="2">Conta Corrente</option>
@@ -229,7 +229,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de Conta</span>
                         </div>
-                        <select class="form-control" name="accountTypeId">
+                        <select class="form-control" name="AccountTypeID">
                             <option>Escolha...</option>
                             @switch (account.AccountTypeID)
                                 {
@@ -314,7 +314,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Tipo de registro</span>
                         </div>
-                        <select class="form-control" name="RecordTypeId" required>
+                        <select class="form-control" name="RecordTypeID" required>
                             <option selected disabled>Escolha...</option>
                             <option value="1">Despesa</option>
                             <option value="2">Receita</option>
@@ -326,7 +326,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Categoria</span>
                         </div>
-                        <select class="form-control" name="RecordSubcategoryId" required>
+                        <select class="form-control" name="RecordSubcategoryID" required>
                             <option selected disabled>Escolha...</option>
                             <option value="1">Alimentação</option>
                             <option value="2">Transporte</option>
@@ -356,7 +356,7 @@
 <!-- VISUALIZAR REGISTRO -->
 @foreach(ReadRecordDTO record in Model.Records)
     {
-        <div class="modal" id="viewRecord-@record.RecordId" role="dialog">
+        <div class="modal" id="viewRecord-@record.RecordID" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -366,7 +366,7 @@
                     <form method="post" asp-controller="Record" asp-action="Update">
                         <div class="modal-body">
                             <p>Use os campos para alterar os dados</p>
-                            <input type="hidden" name="RecordId" value="@record.RecordId">
+                            <input type="hidden" name="RecordID" value="@record.RecordID">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">R$</span>
@@ -398,9 +398,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tipo de registro</span>
                                 </div>
-                                <select class="form-control" name="RecordTypeId" required>
+                                <select class="form-control" name="RecordTypeID" required>
                                     <option disabled>Escolha...</option>
-                                    @if (record.RecordTypeId == 1)
+                                    @if (record.RecordTypeID == 1)
                                     {
                                         <option selected value="1">Despesa</option>
                                     }
@@ -408,7 +408,7 @@
                                     {
                                         <option value="1">Despesa</option>
                                     }
-                                    @if (record.RecordTypeId == 2)
+                                    @if (record.RecordTypeID == 2)
                                     {
                                         <option selected value="2">Receita</option>
                                     }
@@ -416,7 +416,7 @@
                                     {
                                         <option value="2">Receita</option>
                                     }
-                                    @if (record.RecordTypeId == 3)
+                                    @if (record.RecordTypeID == 3)
                                     {
                                         <option selected value="3">Transferência</option>
                                     }
@@ -431,9 +431,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Categoria</span>
                                 </div>
-                                <select class="form-control" name="RecordSubcategoryId" required>
+                                <select class="form-control" name="RecordSubcategoryID" required>
                                     <option disabled>Escolha...</option>
-                                    @if (record.RecordSubcategoryId == 1)
+                                    @if (record.RecordSubcategoryID == 1)
                                     {
                                         <option selected value="1">Alimentação</option>
                                     }
@@ -442,7 +442,7 @@
                                         <option value="1">Alimentação</option>
                                     }
 
-                                    @if (record.RecordSubcategoryId == 2)
+                                    @if (record.RecordSubcategoryID == 2)
                                     {
                                         <option selected value="2">Transporte</option>
                                     }
@@ -451,7 +451,7 @@
                                         <option value="2">Transporte</option>
                                     }
 
-                                    @if (record.RecordSubcategoryId == 3)
+                                    @if (record.RecordSubcategoryID == 3)
                                     {
                                         <option selected value="3">Compras</option>
                                     }
@@ -460,7 +460,7 @@
                                         <option value="3">Compras</option>
                                     }
 
-                                    @if (record.RecordSubcategoryId == 4)
+                                    @if (record.RecordSubcategoryID == 4)
                                     {
                                         <option selected value="4">Entretenimento</option>
                                     }
@@ -469,7 +469,7 @@
                                         <option value="4">Entretenimento</option>
                                     }
 
-                                    @if (record.RecordSubcategoryId == 5)
+                                    @if (record.RecordSubcategoryID == 5)
                                     {
                                         <option selected value="5">Moradia</option>
                                     }
@@ -478,7 +478,7 @@
                                         <option value="5">Moradia</option>
                                     }
 
-                                    @if (record.RecordSubcategoryId == 6)
+                                    @if (record.RecordSubcategoryID == 6)
                                     {
                                         <option selected value="6">Despesas Financeiras</option>
                                     }
@@ -498,7 +498,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-success">Salvar</button>
-                            <a type="button" class="btn btn-danger" asp-controller="Record" asp-action="Delete" asp-route-id="@record.RecordId">Excluir</a>
+                            <a type="button" class="btn btn-danger" asp-controller="Record" asp-action="Delete" asp-route-id="@record.RecordID">Excluir</a>
                         </div>
                     </form>
                 </div>

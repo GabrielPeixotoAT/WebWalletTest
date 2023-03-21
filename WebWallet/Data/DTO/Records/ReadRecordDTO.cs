@@ -9,7 +9,7 @@ namespace WebWallet.Data.DTO.Records
     public class ReadRecordDTO
     {
         [Required]
-        public int RecordId { get; set; }
+        public int RecordID { get; set; }
         [Required]
         public Decimal Value { get; set; }
         [Required]
@@ -17,8 +17,8 @@ namespace WebWallet.Data.DTO.Records
         [Required]
         public int AccountID { get; set; }
         [Required]
-        public int RecordTypeId { get; set; }
+        public int RecordTypeID { get; set; }
         [Required]
-        public int RecordSubcategoryId { get; set; }
+        public int RecordSubcategoryID { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace WebWallet.Models.ViewModels
         {
             foreach(ReadRecordSubcategoryDTO category in Categories)
             {
-                category.SubTotal = CalculateSubTotal(category.RecordSubcategoryId);
+                category.SubTotal = CalculateSubTotal(category.RecordSubcategoryID);
             }
 
             Categories = Categories.OrderByDescending(category => category.SubTotal).ToList();
@@ -35,7 +35,7 @@ namespace WebWallet.Models.ViewModels
 
             foreach (ReadRecordDTO record in Records)
             {
-                if (record.RecordSubcategoryId == categoryId && record.RecordTypeId == 1)
+                if (record.RecordSubcategoryID == categoryId && record.RecordTypeID == 1)
                 {
                     subTotal += record.Value;
                 }

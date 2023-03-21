@@ -61,7 +61,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">Tipo de Conta</span>
                                             </div>
-                                            <select class="form-control" name="accountTypeId">
+                                            <select class="form-control" name="AccountTypeID">
                                                 <option>Escolha...</option>
                                                 @switch (Model.Account.AccountTypeID)
                                                 {
@@ -140,8 +140,8 @@
                                     @foreach(ReadRecordDTO record in Model.Records)
                                     {
                                         <tr>
-                                            <td scope="row">@Model.RecordSubcategories.FirstOrDefault(r => r.RecordSubcategoryId == record.RecordSubcategoryId).Description</td>
-                                            @if(record.RecordTypeId == 1)
+                                            <td scope="row">@Model.RecordSubcategories.FirstOrDefault(r => r.RecordSubcategoryID == record.RecordSubcategoryID).Description</td>
+                                            @if(record.RecordTypeID == 1)
                                             {
                                                 <td scope="row" class="text-danger">R$ -@record.Value</td>
                                             }
@@ -151,7 +151,7 @@
                                             }
                                             <td scope="row">@record.Date.ToString("dd/MM/yyyy - HH:mm")</td>
                                             <td scope="row">
-                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@record.RecordId" class="btn btn-outline-secondary pb-0 btn-sm">
+                                                <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@record.RecordID" class="btn btn-outline-secondary pb-0 btn-sm">
                                                     <span class="material-symbols-outlined small">
                                                         edit
                                                     </span>

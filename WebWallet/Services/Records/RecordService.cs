@@ -34,10 +34,10 @@ namespace WebWallet.Services.Records
 
             Record record = mapper.Map<Record>(request);
 
-            if (record.RecordTypeId == 1)
+            if (record.RecordTypeID == 1)
                 account.Amount -= record.Value;
 
-            else if (record.RecordTypeId == 2)
+            else if (record.RecordTypeID == 2)
                 account.Amount += record.Value;
 
             context.Records.Add(record);
@@ -51,12 +51,12 @@ namespace WebWallet.Services.Records
             List<ReadRecordDTO> records = context.Accounts.Where(account => account.UserId == userID).Join(context.Records,
                 account => account.AccountID, record => record.AccountID, (account, record) => new ReadRecordDTO
                 {
-                    RecordId = record.RecordId,
+                    RecordID = record.RecordID,
                     Value = record.Value,
                     Date = record.Date,
                     AccountID = record.AccountID,
-                    RecordTypeId = record.RecordTypeId,
-                    RecordSubcategoryId = record.RecordSubcategoryId
+                    RecordTypeID = record.RecordTypeID,
+                    RecordSubcategoryID = record.RecordSubcategoryID
                 }).OrderByDescending(record => record.Date).ToList();
 
             return records;
@@ -64,7 +64,7 @@ namespace WebWallet.Services.Records
 
         Record? GetByID(int id)
         {
-            return context.Records.FirstOrDefault(r => r.RecordId == id);
+            return context.Records.FirstOrDefault(r => r.RecordID == id);
         }
 
         public List<ReadRecordDTO> GetByAccount(int accountID)
@@ -74,7 +74,7 @@ namespace WebWallet.Services.Records
 
         public Result<UpdateRecordDTO> Update(UpdateRecordDTO request)
         {
-            Record? record = GetByID(request.RecordId);
+            Record? record = GetByID(request.RecordID);
 
             if (record == null) 
                 return new ErrorResult<UpdateRecordDTO>(request, "Record not found");
@@ -85,27 +85,27 @@ namespace WebWallet.Services.Records
             if (oldAccount == null || newAccount == null)
                 return new ErrorResult<UpdateRecordDTO>(request, "Account not found");
 
-            if (record.RecordTypeId == 1)
+            if (record.RecordTypeID == 1)
             {
-                if (request.RecordTypeId == 1)
+                if (request.RecordTypeID == 1)
                 {
                     oldAccount.Amount += record.Value;
                     newAccount.Amount -= request.Value;
                 }
-                else if (request.RecordTypeId == 2)
+                else if (request.RecordTypeID == 2)
                 {
                     oldAccount.Amount += record.Value;
                     newAccount.Amount += request.Value;
                 }
             }
-            else if (record.RecordTypeId == 2)
+            else if (record.RecordTypeID == 2)
             {
-                if (request.RecordTypeId == 1)
+                if (request.RecordTypeID == 1)
                 {
                     oldAccount.Amount -= record.Value;
                     newAccount.Amount -= request.Value;
                 }
-                else if (request.RecordTypeId == 2)
+                else if (request.RecordTypeID == 2)
                 {
                     oldAccount.Amount -= record.Value;
                     newAccount.Amount += request.Value;
@@ -115,8 +115,8 @@ namespace WebWallet.Services.Records
             record.Value = request.Value;
             record.Date = request.Date;
             record.AccountID = request.AccountID;
-            record.RecordTypeId = request.RecordTypeId;
-            record.RecordSubcategoryId = request.RecordSubcategoryId;
+            record.RecordTypeID = request.RecordTypeID;
+            record.RecordSubcategoryID = request.RecordSubcategoryID;
 
             context.SaveChanges();
 
@@ -135,9 +135,9 @@ namespace WebWallet.Services.Records
             if (account == null)
                 return new ErrorResult("Account not found");
 
-            if (record.RecordTypeId == 1)
+            if (record.RecordTypeID == 1)
                 account.Amount += record.Value;
-            else if (record.RecordTypeId == 2)
+            else if (record.RecordTypeID == 2)
                 account.Amount -= record.Value;
 
             context.Records.Remove(record);

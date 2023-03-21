@@ -6,7 +6,7 @@ namespace WebWallet.Models.Records
     {
         [Key]
         [Required]
-        public int RecordCategoryId { get; set; }
+        public int RecordCategoryID { get; set; }
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
