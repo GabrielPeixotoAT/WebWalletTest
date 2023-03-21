@@ -328,12 +328,10 @@
                         </div>
                         <select class="form-control" name="RecordSubcategoryID" required>
                             <option selected disabled>Escolha...</option>
-                            <option value="1">Alimentação</option>
-                            <option value="2">Transporte</option>
-                            <option value="3">Compras</option>
-                            <option value="4">Entretenimento</option>
-                            <option value="5">Moradia</option>
-                            <option value="6">Despesas Financeiras</option>
+                            @foreach (ReadRecordSubcategoryDTO subcategory in Model.Categories)
+                                {
+                                    <option value="@subcategory.RecordSubcategoryID">@subcategory.Description</option>
+                                }
                         </select>
                     </div>
 

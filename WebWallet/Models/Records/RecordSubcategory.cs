@@ -10,7 +10,7 @@ namespace WebWallet.Models.Records
         [Required]
         [StringLength(100)]
         public string Description { get; set; }
-        
-        public RecordCategory RecordCategory { get; set; }
+        public int RecordCategoryID { get; set; }
+        public virtual RecordCategory RecordCategory { get; set; }
     }
 }

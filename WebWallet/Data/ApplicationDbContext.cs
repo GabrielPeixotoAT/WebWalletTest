@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebWallet.Data.Seeders;
 using WebWallet.Models.Accounts;
 using WebWallet.Models.Records;
 
@@ -10,6 +11,13 @@ namespace WebWallet.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            DBSeeder.Seed(builder);
         }
 
         public DbSet<Account> Accounts { get; set; }

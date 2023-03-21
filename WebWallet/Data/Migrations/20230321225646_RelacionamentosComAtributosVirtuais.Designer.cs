@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebWallet.Data;
 
@@ -11,9 +12,10 @@ using WebWallet.Data;
 namespace WebWallet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230321225646_RelacionamentosComAtributosVirtuais")]
+    partial class RelacionamentosComAtributosVirtuais
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,158 +410,6 @@ namespace WebWallet.Data.Migrations
                     b.HasIndex("RecordCategoryID");
 
                     b.ToTable("RecordSubcategories");
-
-                    b.HasData(
-                        new
-                        {
-                            RecordSubcategoryID = 1,
-                            Description = "Refeições",
-                            RecordCategoryID = 1
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 2,
-                            Description = "Fastfood",
-                            RecordCategoryID = 1
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 3,
-                            Description = "Bebida",
-                            RecordCategoryID = 1
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 4,
-                            Description = "Bebidas Alcoólicas",
-                            RecordCategoryID = 1
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 5,
-                            Description = "Bem-estar e Saúde",
-                            RecordCategoryID = 2
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 6,
-                            Description = "Casa",
-                            RecordCategoryID = 2
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 7,
-                            Description = "Eletrônicos",
-                            RecordCategoryID = 2
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 8,
-                            Description = "Papelaria e Escritório",
-                            RecordCategoryID = 2
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 9,
-                            Description = "Presentes",
-                            RecordCategoryID = 2
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 10,
-                            Description = "Empréstimos",
-                            RecordCategoryID = 3
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 11,
-                            Description = "Cobranças",
-                            RecordCategoryID = 3
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 12,
-                            Description = "Impostos",
-                            RecordCategoryID = 3
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 13,
-                            Description = "Ativos, Ações, Títulos",
-                            RecordCategoryID = 4
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 14,
-                            Description = "Imóveis",
-                            RecordCategoryID = 4
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 15,
-                            Description = "Poupança",
-                            RecordCategoryID = 4
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 16,
-                            Description = "Aluguel",
-                            RecordCategoryID = 5
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 17,
-                            Description = "Contas",
-                            RecordCategoryID = 5
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 18,
-                            Description = "Manutenção",
-                            RecordCategoryID = 5
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 19,
-                            Description = "Serviços",
-                            RecordCategoryID = 5
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 20,
-                            Description = "Viagens",
-                            RecordCategoryID = 6
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 21,
-                            Description = "Táxi",
-                            RecordCategoryID = 6
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 22,
-                            Description = "Transporte Público",
-                            RecordCategoryID = 6
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 23,
-                            Description = "Cultura",
-                            RecordCategoryID = 7
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 24,
-                            Description = "Eventos",
-                            RecordCategoryID = 7
-                        },
-                        new
-                        {
-                            RecordSubcategoryID = 25,
-                            Description = "Passatempos",
-                            RecordCategoryID = 7
-                        });
                 });
 
             modelBuilder.Entity("WebWallet.Models.Records.RecordType", b =>

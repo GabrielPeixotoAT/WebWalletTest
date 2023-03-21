@@ -10,5 +10,7 @@ namespace WebWallet.Models.Records
         [Required]
         [StringLength(100)]
         public string Description { get; set; }
+
+        public virtual List<Record> Records { get; set; }
     }
 }
