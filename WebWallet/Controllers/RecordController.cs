@@ -24,7 +24,7 @@ namespace WebWallet.Controllers
             Result<CreateRecordDTO> result = recordService.Create(request);
 
             if (result.HasError)
-                return StatusCode(500, result);
+                return NotFound($"Error: {result.Message}");
 
             return Redirect("/");
         }
@@ -34,7 +34,7 @@ namespace WebWallet.Controllers
             Result<UpdateRecordDTO> result = recordService.Update(request);
 
             if (result.HasError)
-                return StatusCode(500, result);
+                return NotFound($"Error: {result.Message}");
 
             return Redirect("/");
         }
@@ -44,7 +44,7 @@ namespace WebWallet.Controllers
             Result result = recordService.Delete(id);
 
             if (result.HasError)
-                return StatusCode(500, result);
+                return NotFound($"Error: {result.Message}");
 
             return Redirect("/");
         }

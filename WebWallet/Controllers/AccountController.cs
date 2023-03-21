@@ -53,7 +53,7 @@ namespace WebWallet.Controllers
             Result<CreateAccountDTO> result = accountService.Create(request);
 
             if(result.HasError)
-                return NotFound();
+                return NotFound($"Error: {result.Message}");
 
             return Redirect("/");
         }
@@ -63,7 +63,7 @@ namespace WebWallet.Controllers
             Result<UpdateAccountDTO> result = accountService.Update(request);
 
             if(result.HasError)
-                return NotFound();
+                return NotFound($"Error: {result.Message}");
 
             return Redirect("/");
         }
@@ -81,7 +81,12 @@ namespace WebWallet.Controllers
 
             AccountDetailViewModel model = new AccountDetailViewModel();
 
-            model.Account = accountService.GetByIDExternal(accountid, userId);
+            ReadAccountDTO? account = accountService.GetByIDExternal(accountid, userId);
+
+            if(account == null)
+                return NotFound("Account Not Found");
+
+            model.Account = account;
             model.Records = recordService.GetByAccount(accountid);
             model.AccountType = accountTypeService.GetAll();
             model.RecordTypes = recordTypeService.GetAll();
