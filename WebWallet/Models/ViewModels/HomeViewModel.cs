@@ -1,4 +1,5 @@
 ﻿using WebWallet.Data.DTO.Accounts;
+using WebWallet.Data.DTO.RecordCategory;
 using WebWallet.Data.DTO.Records;
 using WebWallet.Data.DTO.RecordsSubcategories;
 
@@ -8,7 +9,8 @@ namespace WebWallet.Models.ViewModels
     {
         public List<ReadAccountDTO> Accounts { get; set; }
         public List<ReadRecordDTO> Records { get; set; }
-        public List<ReadRecordSubcategoryDTO> Categories { get; set; }
+        public List<ReadRecordCategoryDTO> Categories { get; set; }
+        public List<ReadRecordSubcategoryDTO> SubCategories { get; set; }
         public Decimal TotalAmount { get; set; } = 0;
 
         public void CalculateTotalAmount()
@@ -21,12 +23,12 @@ namespace WebWallet.Models.ViewModels
 
         public void CalculateCategoriesSubtotal()
         {
-            foreach(ReadRecordSubcategoryDTO category in Categories)
+            foreach(ReadRecordSubcategoryDTO subcategory in SubCategories)
             {
-                category.SubTotal = CalculateSubTotal(category.RecordSubcategoryID);
+                subcategory.SubTotal = CalculateSubTotal(subcategory.RecordSubcategoryID);
             }
 
-            Categories = Categories.OrderByDescending(category => category.SubTotal).ToList();
+            SubCategories = SubCategories.OrderByDescending(subcategory => subcategory.SubTotal).ToList();
         }
 
         public Decimal CalculateSubTotal(int categoryId)

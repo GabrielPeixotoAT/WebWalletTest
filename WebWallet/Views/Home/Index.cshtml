@@ -4,6 +4,7 @@
 
 @using WebWallet.Data.DTO.Accounts;
 @using WebWallet.Data.DTO.Records;
+@using WebWallet.Data.DTO.RecordCategory;
 @using WebWallet.Data.DTO.RecordsSubcategories;
 @using WebWallet.Models.ViewModels
 @model HomeViewModel
@@ -92,7 +93,7 @@
                                         <td class="text-success">+@record.Value</td>
                                     }
                                 
-                                    <td>@Model.Categories.FirstOrDefault(category => category.RecordSubcategoryID == record.RecordSubcategoryID).Description</td>
+                                    <td>@Model.SubCategories.FirstOrDefault(category => category.RecordSubcategoryID == record.RecordSubcategoryID).Description</td>
                                     <td>@record.Date.ToString("dd/MM/yyyy HH:mm")</td>
                                     <td>
                                         <a href="" class="btn btn-outline-secondary btn-sm" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#viewRecord-@record.RecordID">
@@ -117,7 +118,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (ReadRecordSubcategoryDTO category in Model.Categories.Take(5))
+                        @foreach (ReadRecordSubcategoryDTO category in Model.SubCategories.Take(5))
                             {
                                 <tr>
                                     <td scope="row">@category.Description</td>
@@ -326,9 +327,22 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Categoria</span>
                         </div>
+                        <select class="form-control" name="RecordCategoryID" required>
+                            <option selected disabled>Escolha...</option>
+                            @foreach (ReadRecordCategoryDTO category in Model.Categories)
+                                {
+                                    <option value="@category.RecordCategoryID">@category.Description</option>
+                                }
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Subcategoria</span>
+                        </div>
                         <select class="form-control" name="RecordSubcategoryID" required>
                             <option selected disabled>Escolha...</option>
-                            @foreach (ReadRecordSubcategoryDTO subcategory in Model.Categories)
+                            @foreach (ReadRecordSubcategoryDTO subcategory in Model.SubCategories)
                                 {
                                     <option value="@subcategory.RecordSubcategoryID">@subcategory.Description</option>
                                 }
