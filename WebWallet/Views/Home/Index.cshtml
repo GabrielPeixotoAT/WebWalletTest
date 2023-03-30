@@ -3,7 +3,9 @@
 }
 
 @using WebWallet.Data.DTO.Accounts;
+@using WebWallet.Data.DTO.AccountType;
 @using WebWallet.Data.DTO.Records;
+@using WebWallet.Data.DTO.RecordType;
 @using WebWallet.Data.DTO.RecordCategory;
 @using WebWallet.Data.DTO.RecordsSubcategories;
 @using WebWallet.Models.ViewModels
@@ -175,10 +177,10 @@
                         </div>
                         <select class="form-control" name="AccountTypeID" required>
                             <option selected disabled>Escolha...</option>
-                            <option value="1">Dinheiro</option>
-                            <option value="2">Conta Corrente</option>
-                            <option value="3">Conta Poupança</option>
-                            <option value="4">Conta em Corretora</option>
+                            @foreach (ReadAccountTypeDTO accountType in Model.AccountTypes)
+                            {
+                                <option value="@accountType.AccountTypeID">@accountType.Description</option>
+                            }
                         </select>
                     </div>
                 </div>
@@ -318,9 +320,10 @@
                         </div>
                         <select class="form-control" name="RecordTypeID" required>
                             <option selected disabled>Escolha...</option>
-                            <option value="1">Despesa</option>
-                            <option value="2">Receita</option>
-                            <option value="3">Transferência</option>
+                            @foreach (ReadRecordTypeDTO recordType in Model.RecordTypes)
+                            {
+                                <option value="@recordType.RecordTypeID">@recordType.Description</option>
+                            }
                         </select>
                     </div>
 

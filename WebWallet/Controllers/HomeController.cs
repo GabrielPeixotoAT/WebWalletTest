@@ -15,8 +15,10 @@ namespace WebWallet.Controllers
         private readonly ILogger<HomeController> logger;
 
         IAccountService accountService;
+        IAccountTypeService accountTypeService;
         IUserService userService;
         IRecordService recordService;
+        IRecordTypeService recordTypeService;
         IRecordSubcategoryService recordSubcategoryService;
         IRecordCategoryService recordCategoryService;
 
@@ -25,7 +27,9 @@ namespace WebWallet.Controllers
             IUserService userService, 
             IRecordService recordService, 
             IRecordSubcategoryService recordSubcategoryService,
-            IRecordCategoryService recordCategoryService)
+            IRecordCategoryService recordCategoryService,
+            IAccountTypeService accountTypeService,
+            IRecordTypeService recordTypeService)
         {
             this.logger = logger;
             this.accountService = accountService;
@@ -33,6 +37,8 @@ namespace WebWallet.Controllers
             this.recordService = recordService;
             this.recordSubcategoryService = recordSubcategoryService;
             this.recordCategoryService = recordCategoryService;
+            this.accountTypeService = accountTypeService;
+            this.recordTypeService = recordTypeService;
         }
 
         public IActionResult Index()
@@ -42,7 +48,9 @@ namespace WebWallet.Controllers
             HomeViewModel model = new HomeViewModel();
 
             model.Accounts = accountService.GetAll(userId);
+            model.AccountTypes = accountTypeService.GetAll();
             model.Records = recordService.GetAll(userId);
+            model.RecordTypes = recordTypeService.GetAll();
             model.Categories = recordCategoryService.GetAll();
             model.SubCategories = recordSubcategoryService.GetAll();
             model.CalculateCategoriesSubtotal();

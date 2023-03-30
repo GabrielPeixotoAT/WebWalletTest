@@ -18,7 +18,7 @@ namespace WebWallet.Services.Records
 
         public List<ReadRecordTypeDTO> GetAll()
         {
-            return mapper.Map<List<ReadRecordTypeDTO>>(context.RecordTypes);
+            return mapper.Map<List<ReadRecordTypeDTO>>(context.RecordTypes.OrderBy(rt => rt.Description));
         }
     }
 }
