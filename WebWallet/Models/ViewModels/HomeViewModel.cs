@@ -27,8 +27,6 @@ namespace WebWallet.Models.ViewModels
             {
                 subcategory.SubTotal = CalculateSubTotal(subcategory.RecordSubcategoryID);
             }
-
-            SubCategories = SubCategories.OrderByDescending(subcategory => subcategory.SubTotal).ToList();
         }
 
         public Decimal CalculateSubTotal(int categoryId)

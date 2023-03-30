@@ -118,7 +118,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (ReadRecordSubcategoryDTO category in Model.SubCategories.Take(5))
+                        @foreach (ReadRecordSubcategoryDTO category in 
+                            Model.SubCategories.OrderByDescending(subcategory => subcategory.SubTotal).Take(5))
                             {
                                 <tr>
                                     <td scope="row">@category.Description</td>

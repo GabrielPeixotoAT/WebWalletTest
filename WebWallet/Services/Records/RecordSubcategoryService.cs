@@ -18,7 +18,8 @@ namespace WebWallet.Services.Records
 
         public List<ReadRecordSubcategoryDTO> GetAll()
         {
-            return mapper.Map<List<ReadRecordSubcategoryDTO>>(context.RecordSubcategories.ToList());
+            return mapper.Map<List<ReadRecordSubcategoryDTO>>(
+                context.RecordSubcategories.OrderBy(subCat => subCat.Description));
         }
     }
 }

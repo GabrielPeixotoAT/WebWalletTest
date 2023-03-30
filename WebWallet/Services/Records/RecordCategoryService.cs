@@ -22,7 +22,8 @@ namespace WebWallet.Services.Records
 
         public List<ReadRecordCategoryDTO> GetAll()
         {
-            return mapper.Map<List<ReadRecordCategoryDTO>>(context.RecordCategories);
+            return mapper.Map<List<ReadRecordCategoryDTO>>(
+                context.RecordCategories.OrderBy(cat => cat.Description));
         }
     }
 }
