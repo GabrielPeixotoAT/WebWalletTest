@@ -117,7 +117,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (ReadRecordSubcategoryDTO category in Model.Categories)
+                        @foreach (ReadRecordSubcategoryDTO category in Model.Categories.Take(5))
                             {
                                 <tr>
                                     <td scope="row">@category.Description</td>
