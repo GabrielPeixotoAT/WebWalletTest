@@ -9,6 +9,25 @@
 
 @if (User.Identity.IsAuthenticated)
 {
+
+    <script>
+        $(document).ready(function () {
+            $("#fText").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#accountsTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+            $("#fAccountType").on("change", function () {
+                var value = $(this).val().toLowerCase();
+                $("#accountsTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+
     <div class="text-center">
         <div class="row">
             <div class="col-8">
@@ -24,8 +43,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-4">
+                                <label for="fText" class="text-left">Pesquisar</label>
+                                <input type="text" class="form-control" id="fText" name="fText">
+                            </div>
+                            <div class="col-4">
                                 <label for="fAccountType" class="text-left">Tipo de Conta</label>
-                                <select class="form-control" name="fAccountType">
+                                <select class="form-control" name="fAccountType" id="fAccountType">
                                     <option value="0" selected disabled>Selecione...</option>
                                     @foreach (ReadAccountTypeDTO type in Model.AccountTypes)
                                     {
@@ -33,18 +56,6 @@
                                     }
                                 </select>
                             </div>
-                            <div class="col-4">
-                                <label for="fAccountType" class="text-left">Ordenar por Saldo</label>
-                                <select class="form-control" name="fAccountType">
-                                    <option selected value="1">Crescente</option>
-                                    <option value="2">Decrescente</option>
-                                </select>
-                            </div>
-                            <div class="col-4">
-                                <label for="btn-apply" class="text-left"><span></span></label>
-                                <a href="#" class="btn btn-outline-secondary col-12" name="btn-apply">Aplicar</a> 
-                            </div>
-                            
                         </div>
                     </div>
                     <div class="card-body">
@@ -59,7 +70,7 @@
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="accountsTable">
                                     @foreach(ReadAccountDTO account in Model.Accounts)
                                     {
                                         <tr>
