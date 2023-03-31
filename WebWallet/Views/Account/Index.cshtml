@@ -42,17 +42,17 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-4">
-                                <label for="fText" class="text-left">Pesquisar</label>
+                            <div class="col-8">
+                                <label for="fText" class="float-start ms-1">Pesquisar</label>
                                 <input type="text" class="form-control" id="fText" name="fText">
                             </div>
                             <div class="col-4">
-                                <label for="fAccountType" class="text-left">Tipo de Conta</label>
+                                <label for="fAccountType" class="float-start ms-1">Tipo de Conta</label>
                                 <select class="form-control" name="fAccountType" id="fAccountType">
                                     <option value="0" selected disabled>Selecione...</option>
                                     @foreach (ReadAccountTypeDTO type in Model.AccountTypes)
                                     {
-                                        <option value="@type.AccountTypeID">@type.Description</option>
+                                        <option value="@type.Description">@type.Description</option>
                                     }
                                 </select>
                             </div>
