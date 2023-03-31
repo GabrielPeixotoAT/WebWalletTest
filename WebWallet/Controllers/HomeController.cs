@@ -4,6 +4,7 @@ using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.DTO.Records;
 using WebWallet.Models;
 using WebWallet.Models.ViewModels;
+using WebWallet.Models.ViewModels.Builders;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Auth.Interfaces;
 using WebWallet.Services.Records.Interfaces;
@@ -45,18 +46,17 @@ namespace WebWallet.Controllers
         {
             string userId = userService.GetUserId();
 
-            HomeViewModel model = new HomeViewModel();
+            HomeViewModelBuilder builder = new HomeViewModelBuilder();
 
-            model.Accounts = accountService.GetAll(userId);
-            model.AccountTypes = accountTypeService.GetAll();
-            model.Records = recordService.GetAll(userId);
-            model.RecordTypes = recordTypeService.GetAll();
-            model.Categories = recordCategoryService.GetAll();
-            model.SubCategories = recordSubcategoryService.GetAll();
-            model.CalculateCategoriesSubtotal();
-            model.CalculateTotalAmount();
+            builder.SetAccounts(accountService.GetAll(userId));
+            builder.SetAccountTypes(accountTypeService.GetAll());
+            builder.SetRecords(recordService.GetAll(userId));
+            builder.SetRecordTypes(recordTypeService.GetAll());
+            builder.SetRecordCategory(recordCategoryService.GetAll());
+            builder.SetRecordSubcategory(recordSubcategoryService.GetAll());
+            builder.CalculateValues();
 
-            return View(model);
+            return View(builder.GetResult());
         }
 
         public IActionResult Privacy()

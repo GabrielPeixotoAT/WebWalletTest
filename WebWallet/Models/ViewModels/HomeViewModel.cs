@@ -7,7 +7,7 @@ using WebWallet.Data.DTO.RecordType;
 
 namespace WebWallet.Models.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : IViewModel
     {
         public List<ReadAccountDTO> Accounts { get; set; }
         public List<ReadAccountTypeDTO> AccountTypes { get; set; }
