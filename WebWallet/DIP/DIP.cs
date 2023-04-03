@@ -4,6 +4,8 @@ using WebWallet.Services.Auth.Interfaces;
 using WebWallet.Services.Auth;
 using WebWallet.Services.Records.Interfaces;
 using WebWallet.Services.Records;
+using WebWallet.Services.Cards.Interfaces;
+using WebWallet.Services.Cards;
 
 namespace WebWallet.DIP
 {
@@ -19,6 +21,8 @@ namespace WebWallet.DIP
             services.AddTransient<IRecordCategoryService, RecordCategoryService>();
             services.AddTransient<IRecordSubcategoryService, RecordSubcategoryService>();
             services.AddTransient<IRecordTypeService, RecordTypeService>();
+
+            services.AddTransient<IBankService, BankService>();
         }
     }
 }

@@ -28,5 +28,6 @@ namespace WebWallet.Data
         public DbSet<RecordSubcategory> RecordSubcategories { get; set; }
         public DbSet<Record> Records { get; set; }
         public DbSet<Bank> Banks { get; set; }
+        public DbSet<Card> Cards { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace WebWallet.Services.Cards
             if (createBankDTO == null)
                 return new ErrorResult<CreateBankDTO>(createBankDTO, "Invalid Bank");
 
-            Bank? readBank = ReadByName(createBankDTO.Name);
+            Bank? readBank = ReadByName(createBankDTO.Name, createBankDTO.UserID);
             if (readBank != null)
                 return new ErrorResult<CreateBankDTO>(createBankDTO, "This bank is already registered");
 
@@ -33,7 +33,7 @@ namespace WebWallet.Services.Cards
             return new SuccessResult<CreateBankDTO>(createBankDTO);
         }
 
-        public List<ReadBankDTO> ReadAll(string userID)
+        public List<ReadBankDTO> GetAll(string userID)
         {
             return mapper.Map<List<ReadBankDTO>>(context.Banks.Where(bank => bank.UserID == userID));
         }
@@ -43,7 +43,7 @@ namespace WebWallet.Services.Cards
             if (updateBankDTO == null)
                 return new ErrorResult<UpdateBankDTO>(updateBankDTO, "Invalid Bank");
 
-            Bank? readBank = ReadByID(updateBankDTO.BankID, updateBankDTO.UserID);
+            Bank? readBank = GetByID(updateBankDTO.BankID, updateBankDTO.UserID);
 
             if (readBank == null)
                 return new ErrorResult<UpdateBankDTO>(updateBankDTO, "Bank not found");
@@ -58,7 +58,7 @@ namespace WebWallet.Services.Cards
 
         public Result Delete(int id, string userID)
         {
-            Bank? readBank = ReadByID(id, userID);
+            Bank? readBank = GetByID(id, userID);
 
             if (readBank == null)
                 return new ErrorResult("Bank not found");
@@ -69,15 +69,16 @@ namespace WebWallet.Services.Cards
             return new SuccessResult();
         }
 
-        Bank? ReadByID(int id, string userID)
+        public Bank? GetByID(int id, string userID)
         {
             return context.Banks.Where(bank => bank.UserID == userID)
                 .Where(bank => bank.BankID == id).First();
         }
 
-        Bank? ReadByName(string name)
+        Bank? ReadByName(string name, string userID)
         {
-            return context.Banks.FirstOrDefault(bank => bank.Name == name);
+            return context.Banks.Where(bank => bank.UserID == userID)
+                .Where(bank => bank.Name == name).First();
         }
     }
 }
