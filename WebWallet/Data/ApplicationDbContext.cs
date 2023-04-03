@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebWallet.Data.Seeders;
 using WebWallet.Models.Accounts;
+using WebWallet.Models.Cards;
 using WebWallet.Models.Records;
 
 namespace WebWallet.Data
@@ -26,5 +27,6 @@ namespace WebWallet.Data
         public DbSet<RecordCategory> RecordCategories { get; set; }
         public DbSet<RecordSubcategory> RecordSubcategories { get; set; }
         public DbSet<Record> Records { get; set; }
+        public DbSet<Bank> Banks { get; set; }
     }
 }
