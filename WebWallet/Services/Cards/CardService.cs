@@ -8,7 +8,7 @@ using WebWallet.Services.Cards.Interfaces;
 
 namespace WebWallet.Services.Cards
 {
-    public class CardService
+    public class CardService : ICardService
     {
         ApplicationDbContext context;
         IMapper mapper;
@@ -17,7 +17,7 @@ namespace WebWallet.Services.Cards
 
         public CardService(
             ApplicationDbContext context,
-            IMapper mapper, 
+            IMapper mapper,
             IBankService bankService)
         {
             this.context = context;
@@ -66,7 +66,7 @@ namespace WebWallet.Services.Cards
         {
             Result<Card?> result = UserHasThisCard(userID, mapper.Map<Card>(updateCard));
 
-            if(result.HasError)
+            if (result.HasError)
                 return new ErrorResult<UpdateCardDTO>(updateCard, result.Message);
 
             Card card = result.ResultObject;
@@ -86,7 +86,7 @@ namespace WebWallet.Services.Cards
         {
             Result<Card?> result = UserHasThisCard(userID, GetByID(id));
 
-            if(result.HasError)
+            if (result.HasError)
                 return new ErrorResult(result.Message);
 
             Card card = result.ResultObject;
@@ -110,13 +110,13 @@ namespace WebWallet.Services.Cards
         Result<Card?> UserHasThisCard(string userID, Card updateCard)
         {
             List<ReadCardDTO> cards = GetAll(userID);
-            
+
             Card? card = GetByID(updateCard.CardID);
 
             if (card == null)
                 return new ErrorResult<Card?>(card, "Card not found");
 
-            return !(cards.Where(c => c.CardID == card.CardID).Count() > 0) ? 
+            return !(cards.Where(c => c.CardID == card.CardID).Count() > 0) ?
                 new ErrorResult<Card?>(card, "Card not found") : new SuccessResult<Card?>(card);
         }
     }
