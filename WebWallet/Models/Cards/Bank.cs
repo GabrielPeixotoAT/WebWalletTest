@@ -15,5 +15,6 @@ namespace WebWallet.Models.Cards
         [Required]
         public string UserID { get; set; }
         public virtual IdentityUser User { get; set; }
+        public virtual List<Card> Cards { get; set; }
     }
 }
