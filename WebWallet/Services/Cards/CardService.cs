@@ -64,12 +64,12 @@ namespace WebWallet.Services.Cards
 
         public Result<UpdateCardDTO> Update(UpdateCardDTO updateCard, string userID)
         {
-            List<ReadCardDTO> cards = GetAll(userID);
-            
-            Card? card = GetByID(updateCard.CardID);
+            Result<Card?> result = UserHasThisCard(userID, mapper.Map<Card>(updateCard));
 
-            if (card == null)
-                return new ErrorResult<UpdateCardDTO>(updateCard, "Card not found");
+            if(result.HasError)
+                return new ErrorResult<UpdateCardDTO>(updateCard, result.Message);
+
+            Card card = result.ResultObject;
 
             card.BankID = updateCard.BankID;
             card.Number = updateCard.Number;
@@ -82,6 +82,21 @@ namespace WebWallet.Services.Cards
             return new SuccessResult<UpdateCardDTO>(updateCard);
         }
 
+        public Result Delete(int id, string userID)
+        {
+            Result<Card?> result = UserHasThisCard(userID, GetByID(id));
+
+            if(result.HasError)
+                return new ErrorResult(result.Message);
+
+            Card card = result.ResultObject;
+
+            context.Cards.Remove(card);
+            context.SaveChanges();
+
+            return new SuccessResult();
+        }
+
         Card? GetByNumber(string number)
         {
             return context.Cards.FirstOrDefault(card => card.Number == number);
@@ -90,6 +105,19 @@ namespace WebWallet.Services.Cards
         Card? GetByID(int id)
         {
             return context.Cards.Find(id);
+        }
+
+        Result<Card?> UserHasThisCard(string userID, Card updateCard)
+        {
+            List<ReadCardDTO> cards = GetAll(userID);
+            
+            Card? card = GetByID(updateCard.CardID);
+
+            if (card == null)
+                return new ErrorResult<Card?>(card, "Card not found");
+
+            return !(cards.Where(c => c.CardID == card.CardID).Count() > 0) ? 
+                new ErrorResult<Card?>(card, "Card not found") : new SuccessResult<Card?>(card);
         }
     }
 }
