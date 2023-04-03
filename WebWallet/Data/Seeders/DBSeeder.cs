@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebWallet.Models.Accounts;
+using WebWallet.Models.Cards;
 using WebWallet.Models.Records;
 
 namespace WebWallet.Data.Seeders
@@ -12,6 +13,7 @@ namespace WebWallet.Data.Seeders
             SeedRecordType(builder);
             SeedRecordCategory(builder);
             SeedRecordSubCatedory(builder);
+            SeedInvoiceStatus(builder);
         }
 
         static void SeedAccountType(ModelBuilder builder)
@@ -274,6 +276,45 @@ namespace WebWallet.Data.Seeders
             };
 
             builder.Entity<RecordSubcategory>().HasData(recordSubcategories);
+        }
+
+        static void SeedInvoiceStatus(ModelBuilder modelBuilder)
+        {
+            List<InvoiceStatus> invoiceStatus = new List<InvoiceStatus>()
+            {
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 1,
+                    Description = "Aberta"
+                },
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 2,
+                    Description = "Vencida"
+                },
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 3,
+                    Description = "Parcialmente Paga"
+                },
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 4,
+                    Description = "Paga"
+                },
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 5,
+                    Description = "Cancelada"
+                },
+                new InvoiceStatus()
+                {
+                    InvoiceStatusID = 6,
+                    Description = "Atrasada"
+                }
+            };
+
+            modelBuilder.Entity<InvoiceStatus>().HasData(invoiceStatus);
         }
     }
 }
