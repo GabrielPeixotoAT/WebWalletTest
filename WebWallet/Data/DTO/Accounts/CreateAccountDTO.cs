@@ -14,5 +14,8 @@ namespace WebWallet.Data.DTO.Accounts
         public int AccountTypeID { get; set; }
         [Required]
         public string UserId { get; set; }
+        [Required]
+        [StringLength(7)]
+        public string ColorCode { get; set; }
     }
 }

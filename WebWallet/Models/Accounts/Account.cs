@@ -20,5 +20,8 @@ namespace WebWallet.Models.Accounts
         [Required]
         public string UserId { get; set; }
         public virtual IdentityUser User { get; set; }
+        [Required]
+        [StringLength(7)]
+        public string ColorCode { get; set; }
     }
 }
