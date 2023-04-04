@@ -29,5 +29,6 @@ namespace WebWallet.Data
         public DbSet<Record> Records { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Card> Cards { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
     }
 }

@@ -102,6 +102,11 @@ namespace WebWallet.Services.Cards
             return context.Cards.FirstOrDefault(card => card.Number == number);
         }
 
+        public ReadCardDTO? ReadOne(int id)
+        {
+            return mapper.Map<ReadCardDTO>(GetByID(id));
+        }
+
         Card? GetByID(int id)
         {
             return context.Cards.Find(id);
