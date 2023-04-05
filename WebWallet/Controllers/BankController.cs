@@ -32,7 +32,19 @@ namespace WebWallet.Controllers
 
             Result<CreateBankDTO> result = bankService.Create(createBank);
 
-            if(result.HasError)
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect("/Card");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            string userID = userService.GetUserId();
+
+            Result result = bankService.Delete(id, userID);
+
+            if (result.HasError)
                 return NotFound($"Error: {result.Message}");
 
             return Redirect("/Card");

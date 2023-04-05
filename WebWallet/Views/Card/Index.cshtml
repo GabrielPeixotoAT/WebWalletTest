@@ -22,12 +22,30 @@
                                 <div class="h3 mb-0">
                                     @bank.Name
                                 </div>
-                                <div class="">
-                                    <button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
-                                        <span class="material-symbols-outlined">
-                                            add
-                                        </span>
-                                    </button>
+                                <div class="row">
+                                    <div class="input-group">
+                                        <a class="btn btn-outline-danger" asp-controller="Bank" asp-action="Delete" asp-route-id="@bank.BankID">
+                                            <!--<button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
+                                                <span class="material-symbols-outlined">
+                                                    add
+                                                </span>-->
+                                            Remover Banco
+                                        </a>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCard">
+                                        <!--<button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
+                                            <span class="material-symbols-outlined">
+                                                add
+                                            </span>-->
+                                            Detalhar Banco
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCard">
+                                            <!--<button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
+                                                <span class="material-symbols-outlined">
+                                                    add
+                                                </span>-->
+                                            Novo Cartão
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">
