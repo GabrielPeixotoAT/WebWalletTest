@@ -13,6 +13,8 @@
     <script>
         $(document).ready(function ($) {
             $('#ExpiringDate').mask('00/00');
+            $('#CardNumber').mask('0000 0000 0000');
+            //$('#CardLimit').maskMoney();
         });
     </script>
     <div class="text-center">
@@ -157,7 +159,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">N°</span>
                             </div>
-                            <input type="text" maxlength="12" class="form-control" aria-describedby="basic-addon1" name="Number" placeholder="Para identificar o cartão" required>
+                            <input type="text" maxlength="12" class="form-control" aria-describedby="basic-addon1" name="Number" id="CardNumber" placeholder="Para identificar o cartão" required>
                         </div>
 
                         <div class="input-group mb-3">
@@ -183,7 +185,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Limite</span>
                             </div>
-                            <input type="number" step=".01" class="form-control" aria-label="Limite" name="Limit" placeholder="Limite do cartão">
+                            <input type="number" step=".01" class="form-control" aria-label="Limite" name="Limit" id="CardLimit" placeholder="Limite do cartão">
                         </div>
 
                         <div class="input-group mb-3">
