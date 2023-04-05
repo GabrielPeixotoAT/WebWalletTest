@@ -4,55 +4,119 @@
 
 @using WebWallet.Models.ViewModels;
 @using WebWallet.Data.DTO.Card;
+@using WebWallet.Data.DTO.Bank;
 
 @model CardViewModel;
 
 @if (User.Identity.IsAuthenticated)
 {
     <div class="text-center">
-        <div class="card mb-4 shadow">
-            <div class="card-header d-inline-flex justify-content-between">
-                <div class="h3 mb-0">
-                    Cartões
-                </div>
-                <div class="">
-                    <button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
-                        <span class="material-symbols-outlined">
-                            add
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-wrap">
-                    @foreach (ReadCardDTO card in Model.Cards)
+        <div class="row">
+            <div class="col-9">
+                @if (Model.Banks.Count() > 0)
+                {
+                    @foreach (ReadBankDTO bank in Model.Banks)
                     {
-                        <div class="p-1 col-6">
-                            <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@card.CardID" class="card col-12 shadow-sm text-dark">
-                                <div class="card-body d-inline-flex justify-content-between">
-                                    <div class="">
-                                        @card.Number
-                                    </div>
-                                    <div class="">
-                                        R$ @card.Limit
-                                    </div>
-                                    <div class="">
-                                        @card.ExpiringDate
-                                    </div>
+                        <div class="card mb-4 shadow">
+                            <div class="card-header d-inline-flex justify-content-between">
+                                <div class="h3 mb-0">
+                                    @bank.Name
                                 </div>
-                            </a>
+                                <div class="">
+                                    <button type="button" class="btn btn-outline-secondary" style="padding-bottom: 0px" data-bs-toggle="modal" data-bs-target="#createCard">
+                                        <span class="material-symbols-outlined">
+                                            add
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap">
+                                    @foreach (ReadCardDTO card in Model.Cards)
+                                    {
+                                        <div class="p-1 col-6">
+                                            <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@card.CardID" class="card col-12 shadow-sm text-dark">
+                                                <div class="card-body d-inline-flex justify-content-between">
+                                                    <div class="">
+                                                        @card.Number
+                                                    </div>
+                                                    <div class="">
+                                                        R$ @card.Limit
+                                                    </div>
+                                                    <div class="">
+                                                        @card.ExpiringDate
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="h4 m-2">
+                                    Total: R$ 0,00
+                                </div>
+                            </div>
                         </div>
                     }
-                </div>
+                }
+                else 
+                {
+                    <div class="card mb-4 shadow">
+                        <div class="card-body">
+                            <div class="h4">Nenhum banco cadastrado</div>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="card-body">
-                <div class="h4 m-2">
-                    Total: R$ 0,00
+            <div class="col-3">
+                <div class="card shadow">
+                    <div class="card-header d-inline-flex justify-content-between">
+                        <div>
+
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createBank">
+                            Novo Banco
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="h5 m-1">
+                            Total: R$ 0,00
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- MODAL PARA CRIAÇÃO DE BANCO -->
+    <div class="modal" id="createBank" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Novo Banco</h4>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" asp-controller="Bank" asp-action="Create">
+                    <div class="modal-body">
+                        <p>Informe os dados do banco</p>
+
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" aria-describedby="basic-addon1" placeholder="Código" name="Code" required>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" placeholder="Nome" name="Name" required>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA CRIAÇÃO DE CARTÃO -->
     <div class="modal" id="createCard" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -73,30 +137,37 @@
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">R$</span>
+                                <span class="input-group-text">Banco</span>
                             </div>
-                            <input type="number" step=".01" class="form-control" aria-label="Saldo" name="amount" placeholder="Saldo">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Nº</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="Numero da Conta" name="accountNumber" placeholder="Número da Conta (opcional)">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Tipo de Conta</span>
-                            </div>
-                            <select class="form-control" name="AccountTypeID" required>
-                                <option selected disabled>Escolha...</option>
-                                <option value="1">Dinheiro</option>
-                                <option value="2">Conta Corrente</option>
-                                <option value="3">Conta Poupança</option>
-                                <option value="4">Conta em Corretora</option>
+                            <select class="form-control" name="BankID" >
+                                @foreach (ReadBankDTO bank in Model.Banks.OrderBy(bk => bk.Code))
+                                {
+                                    <option value="@bank.BankID">@bank.Code - @bank.Name</option>
+                                }
                             </select>
                         </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Validade</span>
+                            </div>
+                            <input type="date" class="form-control" aria-label="Validade" name="ExpiringDate" placeholder="Data de vencimento">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Limite</span>
+                            </div>
+                            <input type="number" step=".01" class="form-control" aria-label="Limite" name="Limit" placeholder="Limite do cartão">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Dia de Vencimento das Faturas</span>
+                            </div>
+                            <input type="number" maxlength="2" max="31" min="1" class="form-control" aria-label="VencimentoFaturas" name="InvoicesDueDate" placeholder="DD">
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Cadastrar</button>

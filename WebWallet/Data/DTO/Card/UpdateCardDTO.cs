@@ -15,6 +15,7 @@ namespace WebWallet.Data.DTO.Card
         [Required]
         public Decimal Limit { get; set; }
         [Required]
+        [StringLength(2)]
         public string InvoicesDueDate { get; set; }
     }
 }
