@@ -19,5 +19,8 @@ namespace WebWallet.Data.DTO.Card
         [Required]
         [StringLength(2)]
         public string InvoicesDueDate { get; set; }
+        [Required]
+        [StringLength(7)]
+        public string ColorCode { get; set; }
     }
 }
