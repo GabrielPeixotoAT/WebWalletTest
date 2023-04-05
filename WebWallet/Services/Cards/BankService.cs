@@ -72,7 +72,7 @@ namespace WebWallet.Services.Cards
         public Bank? GetByID(int id, string userID)
         {
             return context.Banks.Where(bank => bank.UserID == userID)
-                .Where(bank => bank.BankID == id).First();
+                .Where(bank => bank.BankID == id).FirstOrDefault();
         }
 
         Bank? ReadByName(string name, string userID)
