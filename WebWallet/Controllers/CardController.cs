@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebWallet.Data.DTO.Card;
+using WebWallet.Data.Result;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Auth.Interfaces;
 using WebWallet.Services.Cards.Interfaces;
@@ -32,6 +34,18 @@ namespace WebWallet.Controllers
             model.Cards = cardService.GetAll(userID);
 
             return View(model);
+        }
+
+        public IActionResult Create(CreateCardDTO createCard)
+        {
+            string userID = userService.GetUserId();
+
+            Result<CreateCardDTO> result = cardService.Create(createCard, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect("/Card");
         }
     }
 }

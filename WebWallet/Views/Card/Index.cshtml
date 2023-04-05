@@ -50,7 +50,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="d-flex flex-wrap">
-                                    @foreach (ReadCardDTO card in Model.Cards)
+                                    @foreach (ReadCardDTO card in Model.Cards.Where(card => card.BankID == bank.BankID))
                                     {
                                         <div class="p-1 col-6">
                                             <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@card.CardID" class="card col-12 shadow-sm text-dark">
