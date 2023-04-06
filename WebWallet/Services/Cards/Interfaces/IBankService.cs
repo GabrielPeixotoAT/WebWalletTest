@@ -11,5 +11,6 @@ namespace WebWallet.Services.Cards.Interfaces
         List<ReadBankDTO> GetAll(string userID);
         Result<UpdateBankDTO> Update(UpdateBankDTO updateBankDTO);
         Bank? GetByID(int id, string userID);
+        ReadBankDTO ReadByID(int id, string userID);
     }
 }

@@ -34,9 +34,9 @@
                                         <a class="btn btn-outline-danger" asp-controller="Bank" asp-action="Delete" asp-route-id="@bank.BankID">
                                             Remover Banco
                                         </a>
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCard">
+                                        <a class="btn btn-outline-secondary" asp-controller="Bank" asp-action="Index" asp-route-id="@bank.BankID">
                                             Detalhar Banco
-                                        </button>
+                                        </a>
                                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCard">
                                             Novo Cartão
                                         </button>

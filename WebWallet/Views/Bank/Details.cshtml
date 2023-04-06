@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Detalhes do Banco";
+}
+
+@using WebWallet.Data.DTO.Bank;
+
+@model ReadBankDTO;
+
+@if (User.Identity.IsAuthenticated)
+{
+    
+}
+else
+{
+    <h1>Web Wallet</h1>
+
+    <p>Plataforma para gerenciamento financeiro pessoal</p>
+}

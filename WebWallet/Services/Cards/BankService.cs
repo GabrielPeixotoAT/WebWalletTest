@@ -75,6 +75,11 @@ namespace WebWallet.Services.Cards
                 .Where(bank => bank.BankID == id).FirstOrDefault();
         }
 
+        public ReadBankDTO ReadByID(int id, string userID)
+        {
+            return mapper.Map<ReadBankDTO>(GetByID(id, userID));
+        }
+
         Bank? ReadByName(string name, string userID)
         {
             return context.Banks.Where(bank => bank.UserID == userID)
