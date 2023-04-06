@@ -59,5 +59,16 @@ namespace WebWallet.Controllers
             
             return Redirect("/Card");
         }
+
+        public IActionResult Details(int id)
+        {
+            string userID = userService.GetUserId();
+
+            CardDetailViewModel model = new CardDetailViewModel();
+
+            model.Card = cardService.ReadOne(id);
+
+            return View(model);
+        }
     }
 }
