@@ -47,5 +47,17 @@ namespace WebWallet.Controllers
 
             return Redirect("/Card");
         }
+
+        public IActionResult Delete(int id)
+        {
+            string userID = userService.GetUserId();
+
+            Result result = cardService.Delete(id, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+            
+            return Redirect("/Card");
+        }
     }
 }
