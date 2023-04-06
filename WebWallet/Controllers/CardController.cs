@@ -67,6 +67,7 @@ namespace WebWallet.Controllers
             CardDetailViewModel model = new CardDetailViewModel();
 
             model.Card = cardService.ReadOne(id);
+            model.Bank = bankService.ReadByID(model.Card.BankID, userID);
 
             return View(model);
         }
