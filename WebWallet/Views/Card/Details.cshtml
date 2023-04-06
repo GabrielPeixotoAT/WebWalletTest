@@ -1,4 +1,5 @@
-﻿@using WebWallet.Models.ViewModels;
+﻿@using WebWallet.Data.DTO.Bank;
+    @using WebWallet.Models.ViewModels;
 @{
     ViewData["Title"] = "Cartões";
 }
@@ -27,15 +28,78 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="input-group">
-                            <input type="text" name="Number" value="@Model.Card.Number">
-
-                        </div>
+                        <form method="post" asp-controller="Card" asp-action="Update" asp-route-id="@Model.Card.CardID">
+                            <input type="text" name="CardID" value="@Model.Card.CardID" hidden>
+                            <div class="row mt-3">
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Nº</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="Number" value="@Model.Card.Number">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Limite R$</span>
+                                        </div>
+                                        <input type="text" step=".01" class="form-control" name="Limit" value="@Model.Card.Limit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Banco</span>
+                                        </div>
+                                        <select class="form-control" name="BankID">
+                                            @foreach (ReadBankDTO bank in Model.Banks)
+                                            {
+                                                @if (Model.Card.BankID == bank.BankID)
+                                                {
+                                                    <option value="@bank.BankID" selected>@bank.Code - @bank.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@bank.BankID">@bank.Code - @bank.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Validade</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="ExpiringDate" value="@Model.Card.ExpiringDate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Vencimento das Faturas</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="InvoicesDueDate" value="@Model.Card.InvoicesDueDate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Cor do Cartão</span>
+                                        </div>
+                                        <input type="color" class="form-control" name="ColorCode" value="@Model.Card.ColorCode">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Salvar
+                            </button>
+                        </form>
                     </div>
                     <div class="card-body">
-                        <div class="h5 m-2">
-                            Limite: R$ @Model.Card.Limit
-                        </div>
                     </div>
                 </div>
             </div>

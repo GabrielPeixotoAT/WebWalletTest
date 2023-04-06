@@ -76,6 +76,7 @@ namespace WebWallet.Services.Cards
             card.ExpiringDate = updateCard.ExpiringDate;
             card.Limit = updateCard.Limit;
             card.InvoicesDueDate = updateCard.InvoicesDueDate;
+            card.ColorCode = updateCard.ColorCode;
 
             context.SaveChanges();
 

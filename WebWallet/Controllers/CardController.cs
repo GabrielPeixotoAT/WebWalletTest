@@ -48,6 +48,18 @@ namespace WebWallet.Controllers
             return Redirect("/Card");
         }
 
+        public IActionResult Update(UpdateCardDTO updateCard)
+        {
+            string userID = userService.GetUserId();
+
+            Result<UpdateCardDTO> result = cardService.Update(updateCard, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect($"/Card/Details/{updateCard.CardID}");
+        }
+
         public IActionResult Delete(int id)
         {
             string userID = userService.GetUserId();
@@ -67,7 +79,7 @@ namespace WebWallet.Controllers
             CardDetailViewModel model = new CardDetailViewModel();
 
             model.Card = cardService.ReadOne(id);
-            model.Bank = bankService.ReadByID(model.Card.BankID, userID);
+            model.Banks = bankService.GetAll(userID);
 
             return View(model);
         }

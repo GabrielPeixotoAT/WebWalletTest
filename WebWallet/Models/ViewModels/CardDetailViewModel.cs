@@ -7,7 +7,7 @@ namespace WebWallet.Models.ViewModels
 {
     public class CardDetailViewModel
     {
-        public ReadBankDTO Bank { get; set; }
+        public List<ReadBankDTO> Banks { get; set; }
         public ReadCardDTO Card { get; set; }
         public List<ReadInvoiceDTO> Invoices { get; set; }
         public List<ReadInvoiceStatusDTO> InvoicesStatus { get; set; }
