@@ -37,7 +37,8 @@ namespace WebWallet.Services.Accounts
                 Amount = createAccoutDTO.Amount,
                 AccountNumber = createAccoutDTO.AccountNumber,
                 AccountType = accountType,
-                UserId = createAccoutDTO.UserId
+                UserId = createAccoutDTO.UserId,
+                ColorCode = createAccoutDTO.ColorCode
             };
 
             context.Accounts.Add(account);

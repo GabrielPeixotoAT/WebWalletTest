@@ -32,7 +32,7 @@
                 @foreach (ReadAccountDTO account in Model.Accounts)
                     {
                         <div class="p-1 col-6">
-                            <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="card col-12 shadow-sm text-dark">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="card col-12 shadow-sm text-dark" style="background-color: @account.ColorCode ;">
                                 <div class="card-body d-inline-flex justify-content-between">
                                     <div class="">
                                         @account.Name
@@ -184,10 +184,12 @@
                         </select>
                     </div>
 
-                    <div>
-                        <label for="ColorCode">Cor para a Conta</label>
-                        <input type="color" name="ColorCode" value="">
-                    </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Cor da Conta</span>
+                            </div>
+                            <input type="color" name="ColorCode" class="form-control" value="">
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -274,6 +276,12 @@
                                         break;
                                 }
                         </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Cor da Conta</span>
+                        </div>
+                        <input type="color" name="ColorCode" class="form-control" value="@account.ColorCode">
                     </div>
                 </div>
                 <div class="modal-footer">
