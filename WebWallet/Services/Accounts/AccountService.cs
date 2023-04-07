@@ -58,6 +58,7 @@ namespace WebWallet.Services.Accounts
             accountUpdate.AccountNumber = request.AccountNumber;
             accountUpdate.Amount = request.Amount;
             accountUpdate.AccountTypeID = request.AccountTypeID;
+            accountUpdate.ColorCode = request.ColorCode;
 
             context.SaveChanges();
 
