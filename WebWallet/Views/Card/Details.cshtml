@@ -8,6 +8,11 @@
 
 @if (User.Identity.IsAuthenticated)
 {
+    <script>
+        $(document).ready(function ($) {
+            $('.simpledate').mask('00/00');
+        });
+    </script>
     <div class="text-center">
         <div class="row">
             <div class="col-12">
@@ -21,7 +26,7 @@
                                 <a class="btn btn-outline-danger" asp-controller="Card" asp-action="Delete" asp-route-id="@Model.Card.CardID">
                                     Remover Cartão
                                 </a>
-                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createCard">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createInvoice">
                                     Nova Fatura
                                 </button>
                             </div>
@@ -100,8 +105,46 @@
                         </form>
                     </div>
                     <div class="card-body">
+
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="createInvoice" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nova Fatura</h4>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="post" asp-controller="Card" asp-action="CreateInvoice">
+                    <div class="modal-body">
+                        <p>Informe os dados da fatura</p>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Data de Início</span>
+                            </div>
+                            <input type="date" class="form-control" aria-describedby="basic-addon1" name="StartTime" placeholder="DD/MM" required>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Data de Vencimento</span>
+                            </div>
+                            <input type="date" class="form-control" aria-describedby="basic-addon1" name="DueDate" placeholder="DD/MM" required>
+                        </div>
+
+                        <input type="hidden" name="CardID" value="@Model.Card.CardID">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

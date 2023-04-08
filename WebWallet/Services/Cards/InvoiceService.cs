@@ -49,6 +49,9 @@ namespace WebWallet.Services.Cards
             if (!(banks.Where(bk => bk.BankID == bank.BankID).Count() > 0))
                 return new ErrorResult<CreateInvoiceDTO>(createInvoice, "Invalid request");
 
+            createInvoice.InvoiceStatusID = 1;
+            createInvoice.Limit = card.Limit;
+
             context.Invoices.Add(mapper.Map<Invoice>(createInvoice));
             context.SaveChanges();
 

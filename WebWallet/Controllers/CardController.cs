@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebWallet.Data.DTO.Card;
+using WebWallet.Data.DTO.Invoices;
 using WebWallet.Data.Result;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Auth.Interfaces;
@@ -11,17 +12,20 @@ namespace WebWallet.Controllers
     {
         ICardService cardService;
         IBankService bankService;
+        IInvoiceService invoiceService;
 
         IUserService userService;
 
         public CardController(
             ICardService cardService,
             IBankService bankService,
+            IInvoiceService invoiceService,
             IUserService userService)
         {
             this.cardService = cardService;
-            this.userService = userService;
             this.bankService = bankService;
+            this.invoiceService = invoiceService;
+            this.userService = userService;
         }
 
         public IActionResult Index()
@@ -78,10 +82,27 @@ namespace WebWallet.Controllers
 
             CardDetailViewModel model = new CardDetailViewModel();
 
-            model.Card = cardService.ReadOne(id);
+            ReadCardDTO? card = cardService.ReadOne(id);
+
+            if (card == null)
+                return NotFound("Error: Card not Found");
+
+            model.Card = card;
             model.Banks = bankService.GetAll(userID);
 
             return View(model);
+        }
+
+        public IActionResult CreateInvoice(CreateInvoiceDTO createInvoice)
+        {
+            string userID = userService.GetUserId();
+
+            Result<CreateInvoiceDTO> result = invoiceService.Create(createInvoice, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect($"/Card/Details/{createInvoice.CardID}");
         }
     }
 }
