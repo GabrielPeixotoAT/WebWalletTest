@@ -28,10 +28,10 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="d-flex flex-wrap">
+            <div class="d-md-flex flex-wrap">
                 @foreach (ReadAccountDTO account in Model.Accounts)
                     {
-                        <div class="p-1 col-6">
+                        <div class="p-1 col-md-6">
                             <a href="" data-bs-toggle="modal" data-bs-target="#viewAccount-@account.AccountID" class="card col-12 shadow-sm text-dark" style="background-color: @account.ColorCode ;">
                                 <div class="card-body d-inline-flex justify-content-between">
                                     <div class="">
@@ -69,8 +69,8 @@
                 </button>
             </div>
         </div>
-        <div class="card-body d-flex">
-            <div class="col-8 overflow-scroll" style="height: 320px;">
+        <div class="card-body d-lg-flex">
+            <div class="col-lg-8 overflow-scroll mb-4" style="height: 320px;">
                 <table class="table table-borderless table-hover">
                     <thead class="bg-light">
                         <tr>
@@ -109,7 +109,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-4 px-3">
+            <div class="col-lg-4 px-3">
                 <table class="table table-bordered">
                     <thead>
                         <h5>Categorias das Despesas</h5>

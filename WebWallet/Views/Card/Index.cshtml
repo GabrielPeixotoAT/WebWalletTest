@@ -19,7 +19,7 @@
     </script>
     <div class="text-center">
         <div class="row">
-            <div class="col-9">
+            <div class="col-md-9">
                 @if (Model.Banks.Count() > 0)
                 {
                     @foreach (ReadBankDTO bank in Model.Banks)
@@ -39,10 +39,10 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex flex-wrap">
+                                <div class="d-lg-flex">
                                     @foreach (ReadCardDTO card in Model.Cards.Where(card => card.BankID == bank.BankID))
                                     {
-                                        <div class="p-1 mb-1 col-md-6">
+                                        <div class="p-1 mb-1 col-lg-6">
                                             <div style="height: 220px; border-radius: 20px; background-color: @card.ColorCode ;" class="shadow">
                                                 <a asp-controller="Card" asp-action="Delete" asp-route-id="@card.CardID" style="float: right; margin-top: -10px; margin-right: -10px;" title="Excluir">
                                                     <div class="btn btn-outline-danger" style="width: 35px; height: 35px; border-radius: 25px;">
@@ -93,7 +93,7 @@
                     </div>
                 }
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
                 <div class="card shadow">
                     <div class="card-header d-inline-flex justify-content-between">
                         <div>
