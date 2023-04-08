@@ -8,4 +8,5 @@ Tecnologias:
   - Entity Framework;
   - Auto Mapper;
   - Microsoft SQL Server;
-  - Azure.
+  - Azure;
+  - Bootstrap.
