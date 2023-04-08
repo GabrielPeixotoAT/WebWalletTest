@@ -89,6 +89,7 @@ namespace WebWallet.Controllers
 
             model.Card = card;
             model.Banks = bankService.GetAll(userID);
+            model.Invoices = invoiceService.GetByCard(id, userID).OrderBy(invoice => invoice.DueDate).Take(2).ToList();
 
             return View(model);
         }
