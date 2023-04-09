@@ -191,85 +191,91 @@ namespace WebWallet.Data.Seeders
                     Description = "Impostos",
                     RecordCategoryID = 3
                 },
-
                 new RecordSubcategory()
                 {
                     RecordSubcategoryID = 13,
+                    Description = "Transferências",
+                    RecordCategoryID = 3
+                },
+
+                new RecordSubcategory()
+                {
+                    RecordSubcategoryID = 14,
                     Description = "Ativos, Ações, Títulos",
                     RecordCategoryID = 4
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 14,
+                    RecordSubcategoryID = 15,
                     Description = "Imóveis",
                     RecordCategoryID = 4
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 15,
+                    RecordSubcategoryID = 16,
                     Description = "Poupança",
                     RecordCategoryID = 4
                 },
 
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 16,
+                    RecordSubcategoryID = 17,
                     Description = "Aluguel",
                     RecordCategoryID = 5
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 17,
+                    RecordSubcategoryID = 18,
                     Description = "Contas",
                     RecordCategoryID = 5
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 18,
+                    RecordSubcategoryID = 19,
                     Description = "Manutenção",
                     RecordCategoryID = 5
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 19,
+                    RecordSubcategoryID = 20,
                     Description = "Serviços",
                     RecordCategoryID = 5
                 },
 
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 20,
+                    RecordSubcategoryID = 21,
                     Description = "Viagens",
                     RecordCategoryID = 6
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 21,
+                    RecordSubcategoryID = 22,
                     Description = "Táxi",
                     RecordCategoryID = 6
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 22,
+                    RecordSubcategoryID = 23,
                     Description = "Transporte Público",
                     RecordCategoryID = 6
                 },
 
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 23,
+                    RecordSubcategoryID = 24,
                     Description = "Cultura",
                     RecordCategoryID = 7
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 24,
+                    RecordSubcategoryID = 25,
                     Description = "Eventos",
                     RecordCategoryID = 7
                 },
                 new RecordSubcategory()
                 {
-                    RecordSubcategoryID = 25,
+                    RecordSubcategoryID = 26,
                     Description = "Passatempos",
                     RecordCategoryID = 7
                 }
