@@ -50,6 +50,20 @@ namespace WebWallet.Controllers
             return Redirect("/Card");
         }
 
+        public IActionResult Update(UpdateBankDTO updateBank)
+        {
+            string userID = userService.GetUserId();
+
+            updateBank.UserID = userID;
+
+            Result<UpdateBankDTO> result = bankService.Update(updateBank);
+
+            if(result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect("/Card");
+        }
+
         public IActionResult Delete(int id)
         {
             string userID = userService.GetUserId();

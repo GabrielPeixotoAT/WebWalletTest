@@ -27,7 +27,22 @@
                         <div class="card mb-4 shadow">
                             <div class="card-header d-inline-flex justify-content-between">
                                 <div class="h3 mb-0">
-                                    @bank.Name
+                                    <form asp-controller="Bank" asp-action="Update">
+                                        <div class="input-group">
+                                            <input type="hidden" value="@bank.BankID" name="BankID">
+                                            <div class="col-2">
+                                                <input type="number" class="form-control" value="@bank.Code" name="Code">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control col-4" value="@bank.Name" name="Name">
+                                            </div>
+                                            <button type="submit" class="btn btn-outline-primary pb-0">
+                                                <span class="material-symbols-outlined" style="margin-left: 0px; margin-top: -1px; font-size: 20pt;">
+                                                    save
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="">
                                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createCard">
