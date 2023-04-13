@@ -58,6 +58,11 @@ namespace WebWallet.Services.Cards
             return new SuccessResult<CreateInvoiceDTO>(createInvoice);
         }
 
+        public ReadInvoiceDTO GetByID(int id, string userID)
+        {
+            return mapper.Map<ReadInvoiceDTO>(context.Invoices.Where(ivc => ivc.Card.Bank.UserID == userID).FirstOrDefault(ivc => ivc.InvoiceID == id));
+        }
+
         public List<ReadInvoiceDTO> GetByCard(int cardID, string userID)
         {
             return mapper.Map<List<ReadInvoiceDTO>>(context.Invoices

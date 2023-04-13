@@ -1,0 +1,22 @@
+﻿@using WebWallet.Models.ViewModels;
+
+@{
+    ViewData["Title"] = "Cartões";
+}
+
+@model InvoiceDetailViewModel;
+
+@if (User.Identity.IsAuthenticated)
+{
+    <script>
+        $(document).ready(function ($) {
+            $('.simpledate').mask('00/00');
+        });
+    </script>
+}
+else
+{
+    <h1>Web Wallet</h1>
+
+    <p>Plataforma para gerenciamento financeiro pessoal</p>
+}

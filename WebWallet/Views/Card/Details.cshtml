@@ -116,7 +116,7 @@
                             {
                                 <div class="p-1 mb-1 col-lg-4">
                                     <div style="height: 250px; border-radius: 20px;" class="shadow @(invoice.DueDate < DateTime.Now.Date && invoice.InvoiceStatusID != 4 && invoice.InvoiceStatusID != 5 ? "bg-danger text-white" : "")">
-                                        <a asp-controller="Card" asp-action="DetailsInvoice" asp-route-id="@invoice.InvoiceID" class="d-flex justify-content-center" title="Editar">
+                                        <a asp-controller="Card" asp-action="InvoiceDetails" asp-route-id="@invoice.InvoiceID" class="d-flex justify-content-center" title="Editar">
                                             <div class="btn @(invoice.DueDate < DateTime.Now.Date && invoice.InvoiceStatusID != 4 && invoice.InvoiceStatusID != 5 ? "btn-outline-light" : "btn-outline-warning") mt-4" style="width: 55px; height: 55px; border-radius: 35px; margin-left: 18px;">
                                                 <span class="material-symbols-outlined" style="margin-left: -7px; margin-top: -1px; font-size: 32pt;">
                                                     edit

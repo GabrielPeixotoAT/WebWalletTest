@@ -11,5 +11,6 @@ namespace WebWallet.Services.Cards.Interfaces
     {
         Result<CreateInvoiceDTO> Create(CreateInvoiceDTO createInvoice, string userID);
         List<ReadInvoiceDTO> GetByCard(int cardID, string userID);
+        ReadInvoiceDTO GetByID (int id, string userID);
     }
 }

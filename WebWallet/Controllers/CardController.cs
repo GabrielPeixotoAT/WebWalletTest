@@ -105,5 +105,17 @@ namespace WebWallet.Controllers
 
             return Redirect($"/Card/Details/{createInvoice.CardID}");
         }
+
+        public IActionResult InvoiceDetails(int id)
+        {
+            string userID = userService.GetUserId();
+
+
+            InvoiceDetailViewModel model = new InvoiceDetailViewModel();
+
+            model.Invoice = invoiceService.GetByID(id, userID);
+
+            return View(model);
+        }
     }
 }
