@@ -1,4 +1,5 @@
-﻿@using WebWallet.Models.ViewModels;
+﻿@using WebWallet.Data.DTO.InvoiceStatus;
+@using WebWallet.Models.ViewModels;
 
 @{
     ViewData["Title"] = "Cartões";
@@ -13,6 +14,108 @@
             $('.simpledate').mask('00/00');
         });
     </script>
+    <div class="text-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4 shadow">
+                    <div class="card-header d-inline-flex justify-content-between">
+                        <div class="h3 mb-0">
+                            Fatura
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <a class="btn btn-outline-danger" asp-controller="" asp-action="" asp-route-id="">
+                                    Remover Fatura
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#createInvoice">
+                                    Nova Transação
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" asp-controller="Card" asp-action="" asp-route-id="">
+                            <input type="text" name="CardID" value="" hidden>
+                            <div class="row mt-3">
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Vencimento</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="StartTime" value="@Model.Invoice.StartTime.ToString("dd/MM/yyyy")">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Vencimento</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="DueDate" value="@Model.Invoice.DueDate.ToString("dd/MM/yyyy")">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Encargos R$</span>
+                                        </div>
+                                        <input type="text" step=".01" class="form-control" name="FinancialCharges" value="@Model.Invoice.FinancialCharges">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Taxas R$</span>
+                                        </div>
+                                        <input type="text" step=".01" class="form-control" name="Taxes" value="@Model.Invoice.Taxes">
+                                    </div>
+                                </div><div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Limite R$</span>
+                                        </div>
+                                        <input type="text" step=".01" class="form-control" name="Limit" value="@Model.Invoice.Limit">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Status</span>
+                                        </div>
+                                        <select class="form-control" name="InvoiceStatusID">
+                                            @foreach (ReadInvoiceStatusDTO status in Model.Status)
+                                            {
+                                                @if (status.InvoiceStatusID == Model.Invoice.InvoiceStatusID)
+                                                {
+                                                    <option selected value="@status.InvoiceStatusID">@status.Description</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@status.InvoiceStatusID">@status.Description</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">
+                                Salvar
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="h5">
+                                Transações
+                            </div>
+                        </div>
+                        <div class="d-lg-flex">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 else
 {

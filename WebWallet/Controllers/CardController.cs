@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebWallet.Data.DTO.Card;
 using WebWallet.Data.DTO.Invoices;
+using WebWallet.Data.DTO.InvoiceStatus;
 using WebWallet.Data.Result;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Auth.Interfaces;
@@ -114,6 +115,7 @@ namespace WebWallet.Controllers
             InvoiceDetailViewModel model = new InvoiceDetailViewModel();
 
             model.Invoice = invoiceService.GetByID(id, userID);
+            model.Status = new List<ReadInvoiceStatusDTO>();
 
             return View(model);
         }
