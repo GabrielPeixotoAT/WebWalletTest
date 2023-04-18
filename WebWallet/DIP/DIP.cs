@@ -25,6 +25,7 @@ namespace WebWallet.DIP
             services.AddTransient<IBankService, BankService>();
             services.AddTransient<ICardService, CardService>();
             services.AddTransient<IInvoiceService, InvoiceService>();
+            services.AddTransient<IInvoiceStatusService, InvoiceStatusService>();
         }
     }
 }

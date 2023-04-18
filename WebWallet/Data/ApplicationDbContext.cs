@@ -30,5 +30,6 @@ namespace WebWallet.Data
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceStatus> InvoiceStatus { get; set; }
     }
 }
