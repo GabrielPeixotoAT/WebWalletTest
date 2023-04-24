@@ -122,5 +122,17 @@ namespace WebWallet.Controllers
 
             return View(model);
         }
+
+        public IActionResult UpdateInvoice(UpdateInvoiceDTO updateInvoice)
+        {
+            string userID = userService.GetUserId();
+
+            Result<UpdateInvoiceDTO> result = invoiceService.Update(updateInvoice, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect("/Card/InvoiceDetails/");
+        }
     }
 }
