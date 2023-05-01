@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebWallet.Data.DTO.Accounts;
+﻿using WebWallet.Data.DTO.Accounts;
 using WebWallet.Data.Result;
 using WebWallet.Models.Accounts;
 

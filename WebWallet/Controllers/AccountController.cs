@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebWallet.Data.DTO.Accounts;
-using WebWallet.Data.DTO.AccountType;
 using WebWallet.Data.Result;
 using WebWallet.Models.ViewModels;
 using WebWallet.Services.Accounts.Interfaces;
 using WebWallet.Services.Auth.Interfaces;
 using WebWallet.Services.Records.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebWallet.Controllers
 {
@@ -60,6 +57,8 @@ namespace WebWallet.Controllers
 
         public IActionResult Update(UpdateAccountDTO request)
         {
+            request.UserId = userService.GetUserId();
+
             Result<UpdateAccountDTO> result = accountService.Update(request);
 
             if(result.HasError)

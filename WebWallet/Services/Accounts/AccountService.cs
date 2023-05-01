@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using WebWallet.Data;
 using WebWallet.Data.DTO.Accounts;
-using WebWallet.Data.DTO.AccountType;
 using WebWallet.Data.Result;
 using WebWallet.Models.Accounts;
 using WebWallet.Services.Accounts.Interfaces;
@@ -24,22 +21,12 @@ namespace WebWallet.Services.Accounts
             this.accountTypeService = accountTypeService;
         }
 
-        public Result<CreateAccountDTO> Create (CreateAccountDTO createAccoutDTO)
+        public Result<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO)
         {
-            AccountType? accountType = accountTypeService.GetById(createAccoutDTO.AccountTypeID);
+            if (!AvailabilityForCreation(createAccoutDTO))
+                return new ErrorResult<CreateAccountDTO>(createAccoutDTO, "This aacount cannot be created");
 
-            if (accountType == null)
-                return new ErrorResult<CreateAccountDTO>(createAccoutDTO, "Type not found");
-
-            Account account = new Account()
-            {
-                Name = createAccoutDTO.Name,
-                Amount = createAccoutDTO.Amount,
-                AccountNumber = createAccoutDTO.AccountNumber,
-                AccountType = accountType,
-                UserId = createAccoutDTO.UserId,
-                ColorCode = createAccoutDTO.ColorCode
-            };
+            Account account = mapper.Map<Account>(createAccoutDTO);
 
             context.Accounts.Add(account);
             context.SaveChanges();
@@ -47,22 +34,22 @@ namespace WebWallet.Services.Accounts
             return new SuccessResult<CreateAccountDTO>(createAccoutDTO, "Created");
         }
 
-        public Result<UpdateAccountDTO> Update(UpdateAccountDTO request)
+        public Result<UpdateAccountDTO> Update(UpdateAccountDTO accountDTO)
         {
-            Account? accountUpdate = GetByID(request.AccountID);
+            Account? accountUpdate = GetByID(accountDTO.AccountID);
 
-            if(accountUpdate == null)
-                return new ErrorResult<UpdateAccountDTO>(request, "Account not found");
+            if(accountUpdate == null || accountUpdate.UserId != accountUpdate.UserId)
+                return new ErrorResult<UpdateAccountDTO>(accountDTO, "Account not found");
 
-            accountUpdate.Name = request.Name;
-            accountUpdate.AccountNumber = request.AccountNumber;
-            accountUpdate.Amount = request.Amount;
-            accountUpdate.AccountTypeID = request.AccountTypeID;
-            accountUpdate.ColorCode = request.ColorCode;
+            accountUpdate.Name = accountDTO.Name;
+            accountUpdate.Amount = accountDTO.Amount;
+            accountUpdate.AccountNumber = accountDTO.AccountNumber;
+            accountUpdate.AccountTypeID = accountDTO.AccountTypeID;
+            accountUpdate.ColorCode = accountDTO.ColorCode;
 
             context.SaveChanges();
 
-            return new SuccessResult<UpdateAccountDTO>(request);
+            return new SuccessResult<UpdateAccountDTO>(accountDTO);
         }
 
         public bool Delete(int id)
@@ -91,6 +78,41 @@ namespace WebWallet.Services.Accounts
         public ReadAccountDTO? GetByIDExternal(int id, string userId)
         {
             return mapper.Map<ReadAccountDTO>(context.Accounts.FirstOrDefault(account => account.AccountID == id && account.UserId == userId));
+        }
+
+        Account? GetByName(string name)
+        {
+            return context.Accounts.FirstOrDefault(account => account.Name == name);
+        }
+
+        bool AvailabilityForCreation(CreateAccountDTO accountDTO)
+        {
+            if (!AccountExistsForUser(accountDTO.Name, accountDTO.UserId) && AccountTypeExists(accountDTO.AccountTypeID))
+                return true;
+
+            return false;
+        }
+
+        bool AccountExistsForUser(string name, string userID)
+        {
+            Account? account = GetByName(name);
+
+            if (account == null)
+                return false;
+            if (account.UserId != userID)
+                return false;
+
+            return true;
+        }
+
+        bool AccountTypeExists(int id)
+        {
+            AccountType? accountType = accountTypeService.GetById(id);
+
+            if (accountType == null)
+                return false;
+
+            return true;
         }
     }
 }
