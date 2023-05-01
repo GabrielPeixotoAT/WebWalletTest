@@ -58,6 +58,11 @@ namespace WebWallet.Services.Cards
             return new SuccessResult<CreateInvoiceDTO>(createInvoice);
         }
 
+        Invoice? ReadByID(int id, string userID)
+        {
+            return context.Invoices.Where(ivc => ivc.Card.Bank.UserID == userID).FirstOrDefault(ivc => ivc.InvoiceID == id);
+        }
+
         public ReadInvoiceDTO GetByID(int id, string userID)
         {
             return mapper.Map<ReadInvoiceDTO>(context.Invoices.Where(ivc => ivc.Card.Bank.UserID == userID).FirstOrDefault(ivc => ivc.InvoiceID == id));
@@ -67,6 +72,19 @@ namespace WebWallet.Services.Cards
         {
             return mapper.Map<List<ReadInvoiceDTO>>(context.Invoices
                 .Where(invoice => invoice.CardID == cardID));
+        }
+
+        public Result<UpdateInvoiceDTO> Update(UpdateInvoiceDTO updateInvoice, string userID)
+        {
+            Invoice? invoice = ReadByID(updateInvoice.InvoiceID, userID);
+
+            if (invoice == null)    
+                return new ErrorResult<UpdateInvoiceDTO>(updateInvoice, "Invoice not found");
+
+            invoice = mapper.Map<Invoice>(updateInvoice);
+            context.SaveChanges();
+
+            return new SuccessResult<UpdateInvoiceDTO>(updateInvoice);
         }
     }
 }

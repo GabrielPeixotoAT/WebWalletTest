@@ -14,6 +14,7 @@ namespace WebWallet.Controllers
         ICardService cardService;
         IBankService bankService;
         IInvoiceService invoiceService;
+        IInvoiceStatusService invoiceStatusService;
 
         IUserService userService;
 
@@ -21,12 +22,14 @@ namespace WebWallet.Controllers
             ICardService cardService,
             IBankService bankService,
             IInvoiceService invoiceService,
-            IUserService userService)
+            IUserService userService,
+            IInvoiceStatusService invoiceStatusService)
         {
             this.cardService = cardService;
             this.bankService = bankService;
             this.invoiceService = invoiceService;
             this.userService = userService;
+            this.invoiceStatusService = invoiceStatusService;
         }
 
         public IActionResult Index()
@@ -115,9 +118,21 @@ namespace WebWallet.Controllers
             InvoiceDetailViewModel model = new InvoiceDetailViewModel();
 
             model.Invoice = invoiceService.GetByID(id, userID);
-            model.Status = new List<ReadInvoiceStatusDTO>();
+            model.Status = invoiceStatusService.GetAll();
 
             return View(model);
+        }
+
+        public IActionResult UpdateInvoice(UpdateInvoiceDTO updateInvoice)
+        {
+            string userID = userService.GetUserId();
+
+            Result<UpdateInvoiceDTO> result = invoiceService.Update(updateInvoice, userID);
+
+            if (result.HasError)
+                return NotFound($"Error: {result.Message}");
+
+            return Redirect("/Card/InvoiceDetails/");
         }
     }
 }

@@ -12,6 +12,7 @@
     <script>
         $(document).ready(function ($) {
             $('.simpledate').mask('00/00');
+            $('.daydate').mask('00/00/0000');
         });
     </script>
     <div class="text-center">
@@ -42,7 +43,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Vencimento</span>
                                         </div>
-                                        <input type="text" class="form-control" name="StartTime" value="@Model.Invoice.StartTime.ToString("dd/MM/yyyy")">
+                                        <input type="text" class="form-control daydate" name="StartTime" value="@Model.Invoice.StartTime.ToString("dd/MM/yyyy")">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 mb-3">
@@ -50,7 +51,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Vencimento</span>
                                         </div>
-                                        <input type="text" class="form-control" name="DueDate" value="@Model.Invoice.DueDate.ToString("dd/MM/yyyy")">
+                                        <input type="text" class="form-control daydate" name="DueDate" value="@Model.Invoice.DueDate.ToString("dd/MM/yyyy")">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 mb-3">

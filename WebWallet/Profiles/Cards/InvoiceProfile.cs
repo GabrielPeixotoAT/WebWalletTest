@@ -14,6 +14,7 @@ namespace WebWallet.Profiles.Cards
         {
             CreateMap<CreateInvoiceDTO, Invoice>();
             CreateMap<Invoice, ReadInvoiceDTO>();
+            CreateMap<UpdateInvoiceDTO, Invoice>();
         }
     }
 }
