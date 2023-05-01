@@ -8,9 +8,9 @@ namespace WebWallet.Services.Accounts.Interfaces
     {
         Result<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO);
         Result<UpdateAccountDTO> Update(UpdateAccountDTO updateAccountDTO);
-        bool Delete(int id);
+        Result Delete(int id, string userID);
         List<ReadAccountDTO> GetAll(string userId);
         Account? GetByID(int id);
-        ReadAccountDTO? GetByIDExternal(int id, string userId);
+        ReadAccountDTO? ReadByID(int id, string userId);
     }
 }

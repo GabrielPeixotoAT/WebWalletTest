@@ -69,9 +69,14 @@ namespace WebWallet.Controllers
 
         public IActionResult Delete(int accountid)
         {
-            bool result = accountService.Delete(accountid);
+            string userId = userService.GetUserId();
 
-            return Redirect("/");
+            Result result = accountService.Delete(accountid, userId);
+
+            if (result.HasError)
+                return NotFound();
+
+            return Redirect("/") ;
         }
 
         public IActionResult AccountDetail(int accountid)
@@ -80,7 +85,7 @@ namespace WebWallet.Controllers
 
             AccountDetailViewModel model = new AccountDetailViewModel();
 
-            ReadAccountDTO? account = accountService.GetByIDExternal(accountid, userId);
+            ReadAccountDTO? account = accountService.ReadByID(accountid, userId);
 
             if(account == null)
                 return NotFound("Account Not Found");

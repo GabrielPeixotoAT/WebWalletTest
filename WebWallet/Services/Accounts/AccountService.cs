@@ -23,7 +23,7 @@ namespace WebWallet.Services.Accounts
 
         public Result<CreateAccountDTO> Create(CreateAccountDTO createAccoutDTO)
         {
-            if (!AvailabilityForCreation(createAccoutDTO))
+            if (!AvailableForCreation(createAccoutDTO))
                 return new ErrorResult<CreateAccountDTO>(createAccoutDTO, "This aacount cannot be created");
 
             Account account = mapper.Map<Account>(createAccoutDTO);
@@ -36,10 +36,10 @@ namespace WebWallet.Services.Accounts
 
         public Result<UpdateAccountDTO> Update(UpdateAccountDTO accountDTO)
         {
-            Account? accountUpdate = GetByID(accountDTO.AccountID);
-
-            if(accountUpdate == null || accountUpdate.UserId != accountUpdate.UserId)
+            if(AvailableForThisUser(accountDTO.AccountID, accountDTO.UserId))
                 return new ErrorResult<UpdateAccountDTO>(accountDTO, "Account not found");
+
+            Account accountUpdate = GetByID(accountDTO.AccountID);
 
             accountUpdate.Name = accountDTO.Name;
             accountUpdate.Amount = accountDTO.Amount;
@@ -52,17 +52,17 @@ namespace WebWallet.Services.Accounts
             return new SuccessResult<UpdateAccountDTO>(accountDTO);
         }
 
-        public bool Delete(int id)
+        public Result Delete(int id, string userID)
         {
-            Account? account = context.Accounts.FirstOrDefault(account => account.AccountID == id);
-            
-            if(account == null)
-                return false;
+            if (!AvailableForThisUser(id, userID))
+                return new ErrorResult("Unable to remove this account");
+
+            Account account = GetByID(id);
 
             context.Accounts.Remove(account);
             context.SaveChanges();
 
-            return true;
+            return new SuccessResult("Removed");
         }
 
         public List<ReadAccountDTO> GetAll(string userId)
@@ -75,7 +75,7 @@ namespace WebWallet.Services.Accounts
             return context.Accounts.FirstOrDefault(account => account.AccountID == id);
         }
 
-        public ReadAccountDTO? GetByIDExternal(int id, string userId)
+        public ReadAccountDTO? ReadByID(int id, string userId)
         {
             return mapper.Map<ReadAccountDTO>(context.Accounts.FirstOrDefault(account => account.AccountID == id && account.UserId == userId));
         }
@@ -85,12 +85,22 @@ namespace WebWallet.Services.Accounts
             return context.Accounts.FirstOrDefault(account => account.Name == name);
         }
 
-        bool AvailabilityForCreation(CreateAccountDTO accountDTO)
+        bool AvailableForThisUser(int accountID, string userID)
         {
-            if (!AccountExistsForUser(accountDTO.Name, accountDTO.UserId) && AccountTypeExists(accountDTO.AccountTypeID))
-                return true;
+            Account? account = GetByID(accountID);
 
-            return false;
+            if (account == null || account.UserId != userID)
+                return false;
+
+            return true;
+        }
+
+        bool AvailableForCreation(CreateAccountDTO accountDTO)
+        {
+            if (AccountExistsForUser(accountDTO.Name, accountDTO.UserId) && !AccountTypeExists(accountDTO.AccountTypeID))
+                return false;
+
+            return true;
         }
 
         bool AccountExistsForUser(string name, string userID)
